@@ -59,6 +59,7 @@ namespace TpMath
         protected static void AjouterUneMatrice()
         {
             int nbRow, nbCol;
+            int methodeRempl;
 
             //Saisit des paramètre de la matrice
             Console.WriteLine("");
@@ -70,7 +71,29 @@ namespace TpMath
             Matrice newMatrice = new Matrice(nbRow, nbCol);
 
             //Remplissage des données de la matrice
-            newMatrice.RemplirMatrice();
+            Console.WriteLine("");
+            Console.WriteLine("Choississez la methode de remplissage de la matrice");
+            Console.WriteLine("1- methode rapide #1");
+            Console.WriteLine("2- methode rapide #2");
+            Console.WriteLine("3- methode rapide #3");
+            methodeRempl = Int32.Parse(Console.ReadLine());
+
+            switch(methodeRempl)
+            {
+                case 1:
+                    newMatrice.RemplirMatriceRapide1();
+                    break;
+                case 2:
+                    newMatrice.RemplirMatriceRapide2();
+                    break;
+                case 3:
+                    newMatrice.RemplirMatrice();
+                    break;
+                default:
+                    newMatrice.RemplirMatrice();
+                    break;
+            }
+
 
             //Ajout de la matrice à la liste des Matrices
             listeMatrice[indexMatrice] = newMatrice;
@@ -102,14 +125,15 @@ namespace TpMath
             }
         }
 
-        //Opérations de matrice
+        //Liste des Opérations possible sur les matrices
         protected static void OperationMatrice()
         {
             int operation;
 
             Console.WriteLine("");
             Console.WriteLine("Quelle opération voulez-vous faire?");
-            Console.WriteLine("1- Additionner 2 matrice");
+            Console.WriteLine("1- Additionner deux matrices");
+            Console.WriteLine("1- Faire le produit scalaire d'une matrice");
             operation = Int32.Parse(Console.ReadLine());
 
             switch(operation)
@@ -118,6 +142,7 @@ namespace TpMath
                     AdditionMatrice();
                     break;
                 case 2:
+                    ProduitScalaire();
                     break;
                 case 3:
                     break;
@@ -139,7 +164,7 @@ namespace TpMath
 
             //Saisit des matrice a additionner
             Console.WriteLine("");
-            Console.WriteLine("Quel premier matrice vouler vous additionner?");
+            Console.WriteLine("Quel premiere matrice vouler vous additionner?");
             matrice1 = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Quel seconde matrice vouler vous additionner?");
             matrice2 = Int32.Parse(Console.ReadLine());
@@ -163,6 +188,33 @@ namespace TpMath
                 Console.WriteLine("Voici le résultat de l'addition de la matrice #{0} et #{1} : ", matrice1, matrice2);
                 resultat.DisplayMatrice();
             }
+
+        }
+
+        //Produit scalaire d'une matrice
+        protected static void ProduitScalaire()
+        {
+            int matrice1, indMat1;
+            double scalaire;
+
+            //Saisit de la matrice a multiplier
+            Console.WriteLine("");
+            Console.WriteLine("Quel matrice vouler vous multiplier par un scalaire?");
+            matrice1 = Int32.Parse(Console.ReadLine());
+            indMat1 = matrice1 - 1;
+
+            //Saisit du scalaire
+            Console.WriteLine("");
+            Console.WriteLine("Veuiller saisir le scalaire par lequel la matrice sera multiplié?");
+            scalaire = Double.Parse(Console.ReadLine());
+
+            Matrice resultat = new Matrice(listeMatrice[indMat1].nbRow, listeMatrice[indMat1].nbCol);
+            resultat = listeMatrice[indMat1].FaireProduitScalaire(scalaire);
+
+            Console.Clear();
+            Console.WriteLine("Voici le résultat de la multiplication de la matrice #{0} et du scalaire {1} : ", matrice1, scalaire);
+            resultat.DisplayMatrice();
+
 
         }
         #endregion

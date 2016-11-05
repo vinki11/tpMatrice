@@ -4,3 +4,9 @@ c:\users\vincent\documents\visual studio 2015\Projects\TpMath\TpMath\bin\Debug\T
 c:\users\vincent\documents\visual studio 2015\Projects\TpMath\TpMath\obj\Debug\TpMath.csprojResolveAssemblyReference.cache
 c:\users\vincent\documents\visual studio 2015\Projects\TpMath\TpMath\obj\Debug\TpMath.exe
 c:\users\vincent\documents\visual studio 2015\Projects\TpMath\TpMath\obj\Debug\TpMath.pdb
+C:\Users\Vincent\Documents\tpMatrice\TpMath\TpMath\bin\Debug\TpMath.exe.config
+C:\Users\Vincent\Documents\tpMatrice\TpMath\TpMath\obj\Debug\TpMath.exe
+C:\Users\Vincent\Documents\tpMatrice\TpMath\TpMath\obj\Debug\TpMath.pdb
+C:\Users\Vincent\Documents\tpMatrice\TpMath\TpMath\bin\Debug\TpMath.exe
+C:\Users\Vincent\Documents\tpMatrice\TpMath\TpMath\bin\Debug\TpMath.pdb
+C:\Users\Vincent\Documents\tpMatrice\TpMath\TpMath\obj\Debug\TpMath.csprojResolveAssemblyReference.cache

@@ -32,6 +32,30 @@ namespace TpMath.Classe
             }
         }
 
+        //Methode temporaire pour initialiser différentes sortes de matrices
+        public void RemplirMatriceRapide1()
+        {
+            for (int i = 0; i < nbRow; i++)
+            {
+                for (int j = 0; j < nbCol; j++)
+                {
+                    matrice[i, j] = j+1;
+                }
+            }
+        }
+
+        //Methode temporaire pour initialiser différentes sortes de matrices
+        public void RemplirMatriceRapide2()
+        {
+            for (int i = 0; i < nbRow; i++)
+            {
+                for (int j = 0; j < nbCol; j++)
+                {
+                    matrice[i, j] = i;
+                }
+            }
+        }
+
         public void DisplayMatrice()
         {
             for (int i = 0; i < nbRow; i++)
@@ -44,6 +68,7 @@ namespace TpMath.Classe
             }
         }
 
+        //Méthode pour l'addition entre 2 matrice
         public Matrice Additionner(Matrice pMatrice)
         {
             
@@ -54,6 +79,22 @@ namespace TpMath.Classe
                 for (int j = 0; j < nbCol; j++)
                 {
                     resultMatrice.matrice[i,j] = matrice[i, j] + pMatrice.matrice[i,j];
+                }
+            }
+
+            return resultMatrice;
+        }
+
+        //Méthode pour la multiplication par un scalaire
+        public Matrice FaireProduitScalaire(double scalaire)
+        {
+            Matrice resultMatrice = new Matrice(nbRow, nbCol);
+
+            for (int i = 0; i < nbRow; i++)
+            {
+                for (int j = 0; j < nbCol; j++)
+                {
+                    resultMatrice.matrice[i, j] = matrice[i, j] * scalaire;
                 }
             }
 
