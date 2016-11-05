@@ -1,0 +1,6 @@
+c:\users\vincent\documents\visual studio 2015\Projects\TpMath\TpMath\bin\Debug\TpMath.exe.config
+c:\users\vincent\documents\visual studio 2015\Projects\TpMath\TpMath\bin\Debug\TpMath.exe
+c:\users\vincent\documents\visual studio 2015\Projects\TpMath\TpMath\bin\Debug\TpMath.pdb
+c:\users\vincent\documents\visual studio 2015\Projects\TpMath\TpMath\obj\Debug\TpMath.csprojResolveAssemblyReference.cache
+c:\users\vincent\documents\visual studio 2015\Projects\TpMath\TpMath\obj\Debug\TpMath.exe
+c:\users\vincent\documents\visual studio 2015\Projects\TpMath\TpMath\obj\Debug\TpMath.pdb
