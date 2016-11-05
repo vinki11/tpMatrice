@@ -90,7 +90,7 @@ namespace TpMath.Classe
             {
                 for (int j = 0; j < nbCol; j++)
                 {
-                    Console.Write(matrice[i, j]);
+                    Console.Write(matrice[i, j].ToString().PadRight(3));
                 }
                 Console.WriteLine();
             }
@@ -144,16 +144,18 @@ namespace TpMath.Classe
 
             double resultat;
 
+            // On boucle parmis les lignes de la première matrice
             for (int i = 0; i < nbRow; i++)
             {
                 indResultCol = 0;
+                //Pour chaque ligne de la première matrice, on calcul une somme de produit correspondant a la position dans la matrice résultante à la colonne de la seconde matrice
                 while (indResultCol < resultNbCol)
                 {
                     resultat = 0;
+                    //On calcul les produits de chaque position dans ligne
                     for (int j = 0; j < nbCol; j++)
                     {
-                        //TODO : Faire un commentaire qui explique pourquoi le changement d'index dans la matrice entrée en paramètre
-                        //resultMatrice.matrice[indResultRow, indResultCol] = 
+                        
                         resultat += matrice[i, j] * pMatrice.matrice[j, indResultCol];
                     }
                     resultMatrice.matrice[indResultRow, indResultCol] = resultat;
