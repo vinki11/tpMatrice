@@ -133,7 +133,8 @@ namespace TpMath
             Console.WriteLine("");
             Console.WriteLine("Quelle opération voulez-vous faire?");
             Console.WriteLine("1- Additionner deux matrices");
-            Console.WriteLine("1- Faire le produit scalaire d'une matrice");
+            Console.WriteLine("2- Faire le produit scalaire d'une matrice");
+            Console.WriteLine("3- Faire le produit matriciel de deux matrices");
             operation = Int32.Parse(Console.ReadLine());
 
             switch(operation)
@@ -145,6 +146,7 @@ namespace TpMath
                     ProduitScalaire();
                     break;
                 case 3:
+                    ProduitMatriciel();
                     break;
                 case 4:
                     break;
@@ -215,8 +217,44 @@ namespace TpMath
             Console.WriteLine("Voici le résultat de la multiplication de la matrice #{0} et du scalaire {1} : ", matrice1, scalaire);
             resultat.DisplayMatrice();
 
+        }
+
+        //Produit matriciel de deux matrice
+        protected static void ProduitMatriciel()
+        {
+            int matrice1, matrice2, indMat1, indMat2;
+
+            //Saisit des matrice a additionner
+            Console.WriteLine("");
+            Console.WriteLine("Quel premiere matrice vouler vous multiplier?");
+            matrice1 = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Quel seconde matrice vouler vous multiplier?");
+            matrice2 = Int32.Parse(Console.ReadLine());
+
+            indMat1 = matrice1 - 1;
+            indMat2 = matrice2 - 1;
+
+            //Validation si la multiplication est valide
+            // Le nb de colonne de la premiere matrice doit etre egal au nb de ligne de la seconde matrice
+            if (listeMatrice[indMat2].NbRow != listeMatrice[indMat1].NbCol)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, format invalide");
+                Console.WriteLine("Pour que le produit matriciel soit possible, le nombre de colonnes de la première matrice doit être égal au nombre de lignes de la seconde matrice");
+            }
+            else
+            {
+                //La matrice produit a le même nombre de ligne que la 1ere Matrice et le même nombre de colonne que la 2e matrice
+                Matrice resultat = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat2].NbCol);
+                resultat = listeMatrice[indMat1].FaireProduitMatriciel(listeMatrice[indMat2]);
+
+                Console.Clear();
+                Console.WriteLine("Voici le résultat de la multiplication matricielle de la matrice #{0} et #{1} : ", matrice1, matrice2);
+                resultat.DisplayMatrice();
+            }
 
         }
+
         #endregion
     }
 }

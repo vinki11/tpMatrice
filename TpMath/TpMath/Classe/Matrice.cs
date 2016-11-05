@@ -9,11 +9,11 @@ namespace TpMath.Classe
     class Matrice
     {
 
-        static double[,] matrice;
+        double[,] matrice;
         private int nbRow;
         private int nbCol;
-        
-        //Attributs
+
+        #region Attributs
         public int NbRow
         {
             get
@@ -39,6 +39,7 @@ namespace TpMath.Classe
                 nbCol = value;
             }
         }
+#endregion
 
         public Matrice(int row, int column)
         {
@@ -123,6 +124,43 @@ namespace TpMath.Classe
                 {
                     resultMatrice.matrice[i, j] = matrice[i, j] * scalaire;
                 }
+            }
+
+            return resultMatrice;
+        }
+
+        //Méthode pour la multiplication matricielle
+        //TODO : prendre en compte plusieurs matrice -> Matrice[] pMatrice au lieu de Matrice pMatrice
+        public Matrice FaireProduitMatriciel(Matrice pMatrice)
+        {
+            Matrice testMatrice = new Matrice(nbRow, nbCol);
+
+            int resultNbRow, resultNbCol, indResultRow, indResultCol;
+            resultNbRow = nbRow;
+            resultNbCol = pMatrice.nbCol;
+            indResultRow = indResultCol = 0;
+
+            Matrice resultMatrice = new Matrice(resultNbRow, resultNbCol);
+
+            double resultat;
+
+            for (int i = 0; i < nbRow; i++)
+            {
+                indResultCol = 0;
+                while (indResultCol < resultNbCol)
+                {
+                    resultat = 0;
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        //TODO : Faire un commentaire qui explique pourquoi le changement d'index dans la matrice entrée en paramètre
+                        //resultMatrice.matrice[indResultRow, indResultCol] = 
+                        resultat += matrice[i, j] * pMatrice.matrice[j, indResultCol];
+                    }
+                    resultMatrice.matrice[indResultRow, indResultCol] = resultat;
+                    indResultCol++;
+                }
+                
+                indResultRow++;
             }
 
             return resultMatrice;
