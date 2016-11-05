@@ -167,6 +167,37 @@ namespace TpMath.Classe
 
             return resultMatrice;
         }
+
+        public bool EstTriangulaire(int typeTriang, int isStrict)
+        {
+            switch (typeTriang)
+            {
+                
+                case 1: //Triangulaire supérieur
+                    VerifTriangulaireSup();
+                    break;
+                case 2: //Triangulaire inférieur
+                    VerifTriangulaireInf();
+                    break;
+                case 3: // Triangulaire inférieur ou supérieur
+                    VerifTriangulaireInf();
+                    VerifTriangulaireSup();
+                    //Si un est false, on call et verifie l'autre voir si yé vrai
+                    break;
+            }
+            return false;
+        }
+
+        private bool VerifTriangulaireSup()
+        {
+            return false;
+        }
+
+        private bool VerifTriangulaireInf()
+        {
+            return false;
+        }
+
     }
 
 
