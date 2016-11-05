@@ -9,9 +9,36 @@ namespace TpMath.Classe
     class Matrice
     {
 
-        double[,] matrice;
-        public int nbRow;
-        public int nbCol;
+        static double[,] matrice;
+        private int nbRow;
+        private int nbCol;
+        
+        //Attributs
+        public int NbRow
+        {
+            get
+            {
+                return nbRow;
+            }
+
+            set
+            {
+                nbRow = value;
+            }
+        }
+
+        public int NbCol
+        {
+            get
+            {
+                return nbCol;
+            }
+
+            set
+            {
+                nbCol = value;
+            }
+        }
 
         public Matrice(int row, int column)
         {

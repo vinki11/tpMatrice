@@ -173,7 +173,7 @@ namespace TpMath
             indMat2 = matrice2 - 1;
 
             //Validation si elles sont du même format
-            if (listeMatrice[indMat1].nbRow != listeMatrice[indMat2].nbRow || listeMatrice[indMat1].nbCol != listeMatrice[indMat2].nbCol)
+            if (listeMatrice[indMat1].NbRow != listeMatrice[indMat2].NbRow || listeMatrice[indMat1].NbCol != listeMatrice[indMat2].NbCol)
             {
                 Console.Clear();
                 Console.WriteLine("Les 2 matrices ne sont pas de même format");
@@ -181,7 +181,7 @@ namespace TpMath
             else
             {
 
-                Matrice resultat = new Matrice(listeMatrice[indMat1].nbRow, listeMatrice[indMat1].nbCol);
+                Matrice resultat = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat1].NbCol);
                 resultat = listeMatrice[indMat1].Additionner(listeMatrice[indMat2]);
 
                 Console.Clear();
@@ -208,7 +208,7 @@ namespace TpMath
             Console.WriteLine("Veuiller saisir le scalaire par lequel la matrice sera multiplié?");
             scalaire = Double.Parse(Console.ReadLine());
 
-            Matrice resultat = new Matrice(listeMatrice[indMat1].nbRow, listeMatrice[indMat1].nbCol);
+            Matrice resultat = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat1].NbCol);
             resultat = listeMatrice[indMat1].FaireProduitScalaire(scalaire);
 
             Console.Clear();
