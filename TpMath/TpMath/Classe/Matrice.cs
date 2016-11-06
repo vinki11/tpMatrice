@@ -49,6 +49,21 @@ namespace TpMath.Classe
 
         }
 
+        public Matrice(int test)
+        {
+            nbCol = 3;
+            nbRow = 3;
+            if (test == 1)
+            {
+                matrice = new double[3, 3] { { 1, 2, 0 }, { 0,0, 1 }, { 0, 0, 1 } };
+            }
+            else
+            {
+                matrice = new double[3, 3] { { 0, 0, 0 }, { 4, 0, 0 }, { 0, 2, 0 } };
+            }
+
+        }
+
         public void RemplirMatrice()
         {
             for (int i = 0; i < nbRow; i++)
@@ -174,28 +189,100 @@ namespace TpMath.Classe
             {
                 
                 case 1: //Triangulaire supérieur
-                    VerifTriangulaireSup();
-                    break;
+                    return VerifTriangulaireSup(isStrict);
                 case 2: //Triangulaire inférieur
-                    VerifTriangulaireInf();
-                    break;
+                    return VerifTriangulaireInf(isStrict);
                 case 3: // Triangulaire inférieur ou supérieur
-                    VerifTriangulaireInf();
-                    VerifTriangulaireSup();
-                    //Si un est false, on call et verifie l'autre voir si yé vrai
-                    break;
+                    if (VerifTriangulaireInf(isStrict) == false)
+                    {
+                       return VerifTriangulaireSup(isStrict);
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                default: //Ne devrait jamais passer dans le default car il y a validation du choix passé en paramètre
+                    return false;
             }
-            return false;
         }
 
-        private bool VerifTriangulaireSup()
+        private bool VerifTriangulaireSup(int isStrict)
         {
-            return false;
+            //On verifie si elle est triangulaire strict
+            if (isStrict == 1)
+            {
+                for (int i = 0; i < nbRow; i++)
+                {
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        if (i >= j)
+                        {
+                            if (matrice[i, j] != 0)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            else //Pas obligé d'être triangulaire strict
+            {
+                for (int i = 0; i < nbRow; i++)
+                {
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        if (i > j)
+                        {
+                            if (matrice[i,j] != 0)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
 
-        private bool VerifTriangulaireInf()
+        private bool VerifTriangulaireInf(int isStrict)
         {
-            return false;
+            //On verifie si elle est triangulaire strict
+            if (isStrict == 1)
+            {
+                for (int i = 0; i < nbRow; i++)
+                {
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        if (i <= j)
+                        {
+                            if (matrice[i, j] != 0)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            else //Pas obligé d'être triangulaire strict
+            {
+                for (int i = 0; i < nbRow; i++)
+                {
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        if (i < j)
+                        {
+                            if (matrice[i, j] != 0)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            return true;
         }
 
     }

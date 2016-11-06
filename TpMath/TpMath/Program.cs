@@ -10,10 +10,19 @@ namespace TpMath
     class Program
     {
         static Matrice[] listeMatrice = new Matrice[50];
-        static int indexMatrice = 0;
+        static int indexMatrice = 2; //tempo normalement 0
+
+        
 
         static void Main(string[] args)
         {
+            //Test initialisation de matrice fake aux positions 1 et 2
+            Matrice mat1 = new Matrice(1);
+            Matrice mat2 = new Matrice(2);
+
+            listeMatrice[0] = mat1;
+            listeMatrice[1] = mat2;
+
             NavigationMenu();
         }
 
@@ -48,8 +57,7 @@ namespace TpMath
                     Console.Clear();
                     Console.WriteLine("Vous avez fait un choix invalide.");
                     break;
-
-                    NavigationMenu();
+                    
             }
 
             NavigationMenu();
@@ -135,6 +143,7 @@ namespace TpMath
             Console.WriteLine("1- Additionner deux matrices");
             Console.WriteLine("2- Faire le produit scalaire d'une matrice");
             Console.WriteLine("3- Faire le produit matriciel de deux matrices");
+            Console.WriteLine("4- Verifier si une matrice est triangulaire");
             operation = Int32.Parse(Console.ReadLine());
 
             switch(operation)
@@ -149,6 +158,7 @@ namespace TpMath
                     ProduitMatriciel();
                     break;
                 case 4:
+                    EstTriangulaire();
                     break;
 
                 default:
@@ -168,28 +178,49 @@ namespace TpMath
             Console.WriteLine("");
             Console.WriteLine("Quel premiere matrice vouler vous additionner?");
             matrice1 = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Quel seconde matrice vouler vous additionner?");
-            matrice2 = Int32.Parse(Console.ReadLine());
 
-            indMat1 = matrice1 - 1;
-            indMat2 = matrice2 - 1;
-
-            //Validation si elles sont du même format
-            if (listeMatrice[indMat1].NbRow != listeMatrice[indMat2].NbRow || listeMatrice[indMat1].NbCol != listeMatrice[indMat2].NbCol)
+            if (matrice1 > indexMatrice || matrice1 <= 0)
             {
                 Console.Clear();
-                Console.WriteLine("Les 2 matrices ne sont pas de même format");
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
             }
             else
             {
+                Console.WriteLine("Quel seconde matrice vouler vous additionner?");
+                matrice2 = Int32.Parse(Console.ReadLine());
 
-                Matrice resultat = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat1].NbCol);
-                resultat = listeMatrice[indMat1].Additionner(listeMatrice[indMat2]);
+                if (matrice2 > indexMatrice || matrice2 <= 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Erreur, cette matrice n'existe pas");
+                }
+                else
+                {
+                    indMat1 = matrice1 - 1;
+                    indMat2 = matrice2 - 1;
 
-                Console.Clear();
-                Console.WriteLine("Voici le résultat de l'addition de la matrice #{0} et #{1} : ", matrice1, matrice2);
-                resultat.DisplayMatrice();
+                    //Validation si elles sont du même format
+                    if (listeMatrice[indMat1].NbRow != listeMatrice[indMat2].NbRow || listeMatrice[indMat1].NbCol != listeMatrice[indMat2].NbCol)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Les 2 matrices ne sont pas de même format");
+                    }
+                    else
+                    {
+
+                        Matrice resultat = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat1].NbCol);
+                        resultat = listeMatrice[indMat1].Additionner(listeMatrice[indMat2]);
+
+                        Console.Clear();
+                        Console.WriteLine("Voici le résultat de l'addition de la matrice #{0} et #{1} : ", matrice1, matrice2);
+                        resultat.DisplayMatrice();
+                    }
+                }
+
+                
             }
+
+            
 
         }
 
@@ -205,17 +236,27 @@ namespace TpMath
             matrice1 = Int32.Parse(Console.ReadLine());
             indMat1 = matrice1 - 1;
 
-            //Saisit du scalaire
-            Console.WriteLine("");
-            Console.WriteLine("Veuiller saisir le scalaire par lequel la matrice sera multiplié?");
-            scalaire = Double.Parse(Console.ReadLine());
+            if (matrice1 > indexMatrice || matrice1 <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
+            }
+            else
+            {
+                //Saisit du scalaire
+                Console.WriteLine("");
+                Console.WriteLine("Veuiller saisir le scalaire par lequel la matrice sera multiplié?");
+                scalaire = Double.Parse(Console.ReadLine());
 
-            Matrice resultat = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat1].NbCol);
-            resultat = listeMatrice[indMat1].FaireProduitScalaire(scalaire);
+                Matrice resultat = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat1].NbCol);
+                resultat = listeMatrice[indMat1].FaireProduitScalaire(scalaire);
 
-            Console.Clear();
-            Console.WriteLine("Voici le résultat de la multiplication de la matrice #{0} et du scalaire {1} : ", matrice1, scalaire);
-            resultat.DisplayMatrice();
+                Console.Clear();
+                Console.WriteLine("Voici le résultat de la multiplication de la matrice #{0} et du scalaire {1} : ", matrice1, scalaire);
+                resultat.DisplayMatrice();
+            }
+
+            
 
         }
 
@@ -228,30 +269,136 @@ namespace TpMath
             Console.WriteLine("");
             Console.WriteLine("Quel premiere matrice vouler vous multiplier?");
             matrice1 = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Quel seconde matrice vouler vous multiplier?");
-            matrice2 = Int32.Parse(Console.ReadLine());
 
-            indMat1 = matrice1 - 1;
-            indMat2 = matrice2 - 1;
-
-            //Validation si la multiplication est valide
-            // Le nb de colonne de la premiere matrice doit etre egal au nb de ligne de la seconde matrice
-            if (listeMatrice[indMat2].NbRow != listeMatrice[indMat1].NbCol)
+            if (matrice1 > indexMatrice || matrice1 <= 0)
             {
                 Console.Clear();
-                Console.WriteLine("Erreur, format invalide");
-                Console.WriteLine("Pour que le produit matriciel soit possible, le nombre de colonnes de la première matrice doit être égal au nombre de lignes de la seconde matrice");
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
             }
             else
             {
-                //La matrice produit a le même nombre de ligne que la 1ere Matrice et le même nombre de colonne que la 2e matrice
-                Matrice resultat = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat2].NbCol);
-                resultat = listeMatrice[indMat1].FaireProduitMatriciel(listeMatrice[indMat2]);
+                Console.WriteLine("Quel seconde matrice vouler vous multiplier?");
+                matrice2 = Int32.Parse(Console.ReadLine());
 
-                Console.Clear();
-                Console.WriteLine("Voici le résultat de la multiplication matricielle de la matrice #{0} et #{1} : ", matrice1, matrice2);
-                resultat.DisplayMatrice();
+                if (matrice2 > indexMatrice || matrice2 <= 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Erreur, cette matrice n'existe pas");
+                }
+                else
+                {
+                    indMat1 = matrice1 - 1;
+                    indMat2 = matrice2 - 1;
+
+                    //Validation si la multiplication est valide
+                    // Le nb de colonne de la premiere matrice doit etre egal au nb de ligne de la seconde matrice
+                    if (listeMatrice[indMat2].NbRow != listeMatrice[indMat1].NbCol)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Erreur, format invalide");
+                        Console.WriteLine("Pour que le produit matriciel soit possible, le nombre de colonnes de la première matrice doit être égal au nombre de lignes de la seconde matrice");
+                    }
+                    else
+                    {
+                        //La matrice produit a le même nombre de ligne que la 1ere Matrice et le même nombre de colonne que la 2e matrice
+                        Matrice resultat = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat2].NbCol);
+                        resultat = listeMatrice[indMat1].FaireProduitMatriciel(listeMatrice[indMat2]);
+
+                        Console.Clear();
+                        Console.WriteLine("Voici le résultat de la multiplication matricielle de la matrice #{0} et #{1} : ", matrice1, matrice2);
+                        resultat.DisplayMatrice();
+                    }
+                }
+
+                
             }
+
+            
+
+        }
+
+        protected static void EstTriangulaire()
+        {
+            int matrice1, indMat1, typeTriang, isStrict;
+            bool bTypeTriang = false;
+            bool bIsStrict = false;
+            bool bResult;
+
+            //Saisit de la matrice à valider
+            Console.WriteLine("");
+            Console.WriteLine("Quelle matrice vouler vous valider?");
+            matrice1 = Int32.Parse(Console.ReadLine());
+
+            if (matrice1 > indexMatrice || matrice1 <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
+            }
+            else
+            {
+                indMat1 = matrice1 - 1;
+                typeTriang = isStrict = 0;
+
+                //Valider si la matrice est carré
+                if (listeMatrice[indMat1].NbCol != listeMatrice[indMat1].NbRow)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Vous avez entrer une matrice qui n'est pas carré");
+                }
+                else
+                {
+                    //Saisit des paramètres
+                    while (!bTypeTriang)
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Quel type de matrice triangulaire voulez-vous tester?");
+                        Console.WriteLine("1- Matrice triangulaire supérieure");
+                        Console.WriteLine("2- Matrice triangulaire inférieure");
+                        Console.WriteLine("3- Matrice triangulaire supérieure ou inférieure");
+                        typeTriang = Int32.Parse(Console.ReadLine());
+
+                        if (typeTriang >= 1 && typeTriang <= 3)
+                        {
+                            bTypeTriang = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Choix invalide");
+                        }
+                    }
+
+                    while (!bIsStrict)
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Souhaiter-vous valider si la matrice est triangulaire strict ou pas?");
+                        Console.WriteLine("1- Matrice triangulaire strict");
+                        Console.WriteLine("2- Matrice triangulaire non strict");
+                        isStrict = Int32.Parse(Console.ReadLine());
+
+                        if (isStrict >= 1 && isStrict <= 3)
+                        {
+                            bIsStrict = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Choix invalide");
+                        }
+                    }
+
+                    bResult = listeMatrice[indMat1].EstTriangulaire(typeTriang, isStrict);
+                    Console.Clear();
+                    if (bResult)
+                    {
+                        Console.WriteLine("La matrice est triangulaire selon les paramètres demandés.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("La matrice n'est pas triangulaire selon les paramètres demandés.");
+                    }
+                }
+            }
+
+            
 
         }
 
