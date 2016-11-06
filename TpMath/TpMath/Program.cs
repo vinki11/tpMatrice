@@ -263,7 +263,10 @@ namespace TpMath
         //Produit matriciel de deux matrice
         protected static void ProduitMatriciel()
         {
-            int matrice1, matrice2, indMat1, indMat2;
+            int matrice1, matrice2, indMat1, indMat2, nbMatriceVoulu;
+            int nbMatrice = 0;
+            Matrice[] matriceToMultiply = new Matrice[50];
+            int indMatriceMult = 0;
 
             //Saisit des matrice a additionner
             Console.WriteLine("");
@@ -277,38 +280,98 @@ namespace TpMath
             }
             else
             {
-                Console.WriteLine("Quel seconde matrice vouler vous multiplier?");
-                matrice2 = Int32.Parse(Console.ReadLine());
+                indMat1 = matrice1 - 1;
+                Console.WriteLine("");
+                Console.WriteLine("Combien de matrice voulez vous multiplier à la suite de la première matrice?");
+                nbMatriceVoulu = Int32.Parse(Console.ReadLine());
 
-                if (matrice2 > indexMatrice || matrice2 <= 0)
+                if (nbMatriceVoulu <= 0)
                 {
                     Console.Clear();
-                    Console.WriteLine("Erreur, cette matrice n'existe pas");
+                    Console.WriteLine("Erreur, vous devez multiplier au moins une matrice");
                 }
                 else
                 {
-                    indMat1 = matrice1 - 1;
-                    indMat2 = matrice2 - 1;
-
-                    //Validation si la multiplication est valide
-                    // Le nb de colonne de la premiere matrice doit etre egal au nb de ligne de la seconde matrice
-                    if (listeMatrice[indMat2].NbRow != listeMatrice[indMat1].NbCol)
+                    while (nbMatrice < nbMatriceVoulu)
                     {
-                        Console.Clear();
-                        Console.WriteLine("Erreur, format invalide");
-                        Console.WriteLine("Pour que le produit matriciel soit possible, le nombre de colonnes de la première matrice doit être égal au nombre de lignes de la seconde matrice");
+                        Console.WriteLine("Quelle est la prochaine matrice à multiplier?");
+                        matrice2 = Int32.Parse(Console.ReadLine());
+
+                        if (matrice2 > indexMatrice || matrice2 <= 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Erreur, cette matrice n'existe pas");
+                        }
+                        else
+                        {
+                            indMat2 = matrice2 - 1;
+
+                            matriceToMultiply[indMatriceMult] = listeMatrice[indMat2];
+                            nbMatrice++;
+
+                            //Validation si la multiplication est valide
+                            // Le nb de colonne de la premiere matrice doit etre egal au nb de ligne de la seconde matrice
+                            if (indMatriceMult == 0)
+                            {
+                                if (listeMatrice[indMat2].NbRow != listeMatrice[indMat1].NbCol)
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Erreur, format invalide");
+                                    Console.WriteLine("Pour que le produit matriciel soit possible, le nombre de colonnes de la première matrice doit être égal au nombre de lignes de la seconde matrice");
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            else
+                            {
+                                int previousInd = indMatriceMult - 1;
+                                if (matriceToMultiply[previousInd].NbRow != matriceToMultiply[indMatriceMult].NbCol)
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Erreur, format invalide");
+                                    Console.WriteLine("Pour que le produit matriciel soit possible, le nombre de la colonne de résultat de la précedente multiplication doit être égal au nombre de lignes de la nouvelle matrice");
+                                }
+                                else
+                                {
+
+                                }
+                            }
+
+                            indMatriceMult++;
+
+                        }
+                    }
+                    //TODO : ici ajouter ke spa listeMatrice1 les rows mais le result du premier
+                    //La matrice produit a le même nombre de ligne que la 1ere Matrice et le même nombre de colonne que la 2e matrice
+                    Matrice resultat;
+                    if (nbMatriceVoulu == 1)
+                    {
+                        int lastInd = indMatriceMult - 1;
+                        resultat = new Matrice(matriceToMultiply[lastInd].NbRow, listeMatrice[indMat1].NbCol);
+                        resultat = listeMatrice[indMat1].FaireProduitMatriciel(matriceToMultiply, nbMatrice);
                     }
                     else
                     {
-                        //La matrice produit a le même nombre de ligne que la 1ere Matrice et le même nombre de colonne que la 2e matrice
-                        Matrice resultat = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat2].NbCol);
-                        resultat = listeMatrice[indMat1].FaireProduitMatriciel(listeMatrice[indMat2]);
 
-                        Console.Clear();
-                        Console.WriteLine("Voici le résultat de la multiplication matricielle de la matrice #{0} et #{1} : ", matrice1, matrice2);
-                        resultat.DisplayMatrice();
+                        int lastInd = indMatriceMult - 1;
+                        int secondLastInd = lastInd - 1;
+                        resultat = new Matrice(matriceToMultiply[secondLastInd].NbRow, matriceToMultiply[lastInd].NbCol);
+                        resultat = listeMatrice[indMat1].FaireProduitMatriciel(matriceToMultiply, nbMatrice);
                     }
+
+
+                    Console.Clear();
+                    //Console.WriteLine("Voici le résultat de la multiplication matricielle de la matrice #{0} et #{1} : ", matrice1, matrice2);
+                    Console.WriteLine("Voici le résultat de la multiplication matricielle demandé.");
+                    resultat.DisplayMatrice();
+
+
+
+
                 }
+
 
                 
             }

@@ -49,6 +49,7 @@ namespace TpMath.Classe
 
         }
 
+        //Constructeur de test pour initialiser des matrices triangulaire
         public Matrice(int test)
         {
             nbCol = 3;
@@ -146,13 +147,14 @@ namespace TpMath.Classe
 
         //Méthode pour la multiplication matricielle
         //TODO : prendre en compte plusieurs matrice -> Matrice[] pMatrice au lieu de Matrice pMatrice
-        public Matrice FaireProduitMatriciel(Matrice pMatrice)
+        public Matrice FaireProduitMatriciel(Matrice[] pMatrice, int nbMatrice)
         {
+            int indMat = nbMatrice - 1;
             Matrice testMatrice = new Matrice(nbRow, nbCol);
 
             int resultNbRow, resultNbCol, indResultRow, indResultCol;
             resultNbRow = nbRow;
-            resultNbCol = pMatrice.nbCol;
+            resultNbCol = pMatrice[indMat].nbCol;
             indResultRow = indResultCol = 0;
 
             Matrice resultMatrice = new Matrice(resultNbRow, resultNbCol);
@@ -171,7 +173,7 @@ namespace TpMath.Classe
                     for (int j = 0; j < nbCol; j++)
                     {
                         
-                        resultat += matrice[i, j] * pMatrice.matrice[j, indResultCol];
+                        resultat += matrice[i, j] * pMatrice[indMat].matrice[j, indResultCol];
                     }
                     resultMatrice.matrice[indResultRow, indResultCol] = resultat;
                     indResultCol++;
