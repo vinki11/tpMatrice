@@ -498,7 +498,7 @@ namespace TpMath
                    // ProduitScalaire();
                     break;
                 case 3:
-                    //ProduitMatriciel();
+                    Trace();
                     break;
                 case 4:
                    // EstTriangulaire();
@@ -513,6 +513,7 @@ namespace TpMath
 
         #region proprietematrice
 
+        //Valide si une matrice est carré ou non
         protected static void EstCarre()
         {
             int matrice1, indMat1;
@@ -539,6 +540,37 @@ namespace TpMath
                 {
                     Console.Clear();
                     Console.WriteLine("La matrice #{0} n'est pas carré", matrice1);
+                }
+            }
+        }
+
+        //Retourne la trace (somme de la diagonale, d'une matrice si elle est carré
+        protected static void Trace()
+        {
+            int matrice1, indMat1;
+
+            Console.WriteLine("");
+            Console.WriteLine("Quelle matrice souhaiter vous voir la trace?");
+            matrice1 = Int32.Parse(Console.ReadLine());
+
+            if (matrice1 > indexMatrice || matrice1 <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
+            }
+            else
+            {
+                indMat1 = matrice1 - 1;
+
+                if (listeMatrice[indMat1].EstCarre)
+                {
+                    Console.Clear();
+                    Console.WriteLine("La trace de la matrice #{0} est {1}", matrice1, listeMatrice[indMat1].Trace.ToString());
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Erreur, la matrice #{0} doit être carré pour pouvoir calculer sa trace", matrice1);
                 }
             }
         }

@@ -41,15 +41,35 @@ namespace TpMath.Classe
         }
 
         public bool EstCarre
+        {
+            get
             {
-                get
-                {
-                if (nbRow == nbCol)
-                    return true;
-                else
-                    return false;
-                }
+            if (nbRow == nbCol)
+                return true;
+            else
+                return false;
             }
+        }
+
+        public double Trace
+        {
+            get
+            {
+                double trace = 0;
+                for (int i = 0; i < nbRow; i++)
+                {
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        if (i == j)
+                        {
+                            trace += matrice[i, j];
+                        }
+                    }
+                }
+                return trace;
+            }
+
+        }
         #endregion
         
 
