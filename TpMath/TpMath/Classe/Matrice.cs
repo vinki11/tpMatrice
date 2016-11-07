@@ -44,10 +44,10 @@ namespace TpMath.Classe
         {
             get
             {
-            if (nbRow == nbCol)
-                return true;
-            else
-                return false;
+                if (nbRow == nbCol)
+                    return true;
+                else
+                    return false;
             }
         }
 
@@ -86,7 +86,7 @@ namespace TpMath.Classe
                 else if (nbCol == 2)
                 {
                     determinant = matrice[0, 0] * matrice[1, 1] - matrice[0, 1] * matrice[1, 0];
-                }          
+                }
                 //Si la taille est plus grande que 3
                 else
                 {
@@ -96,17 +96,17 @@ namespace TpMath.Classe
                     {
                         if (signeIsPos)
                         {
-                            determinant += matrice[0, j] * ComplementAlgebrique(j, this);
+                            determinant += ComplementAlgebrique(j, this);
                             signeIsPos = false;
                         }
                         else
                         {
-                            determinant += matrice[0, j] * - (ComplementAlgebrique(j, this));
+                            determinant -= (ComplementAlgebrique(j, this));
                             signeIsPos = true;
                         }
                     }
                 }
-                    
+
 
 
                 return determinant;
@@ -131,15 +131,28 @@ namespace TpMath.Classe
             nbRow = 3;
             if (test == 1)
             {
-                matrice = new double[3, 3] { { 1, 2, 0 }, { 0,0, 1 }, { 0, 0, 1 } };
+                matrice = new double[3, 3] { { 1, 2, 0 }, { 0, 0, 1 }, { 0, 0, 1 } };
             }
             else if (test == 2)
             {
                 matrice = new double[3, 3] { { 0, 0, 0 }, { 4, 0, 0 }, { 0, 2, 0 } };
             }
-            else
+            else if (test == 3)
             {
-                matrice = new double[3, 3] { { 5, 3, 4 }, { 8, 1, 5}, { 3, 5, 6 } };
+                matrice = new double[3, 3] { { 5, 3, 4 }, { 8, 1, 5 }, { 3, 5, 6 } };
+            }
+            else if (test == 4)
+            {
+                nbCol = 4;
+                nbRow = 4;
+                matrice = new double[4, 4] { { 4, 2, 8, 3 }, { 5, 1, 7, 5 }, { 8, 0, 8, 5 }, { 3, 2, 3, 8 } };
+            }
+            else if (test == 5)
+            {
+                nbCol = 7;
+                nbRow = 7;
+                matrice = new double[7, 7] { { 4, 2, 8, 3, 3, 2, 1 }, { 5, 1, 7, 5, 3, 2, 1 }, { 8, 0, 8, 5, 4, 4, 2 }, { 3, 2, 3, 8 , 4, 2, 1 } , { 6, 7, 3, 0 , 1, 1, 3 }
+                , { 3, 2, 3, 4 , 4, 4, 4 } , { 3, 5, 3, 2 , 7, 3, 2 }};
             }
 
         }
@@ -162,7 +175,7 @@ namespace TpMath.Classe
             {
                 for (int j = 0; j < nbCol; j++)
                 {
-                    matrice[i, j] = j+1;
+                    matrice[i, j] = j + 1;
                 }
             }
         }
@@ -194,14 +207,14 @@ namespace TpMath.Classe
         //Méthode pour l'addition entre 2 matrice
         public Matrice Additionner(Matrice pMatrice)
         {
-            
+
 
             Matrice resultMatrice = new Matrice(nbRow, nbCol);
             for (int i = 0; i < nbRow; i++)
             {
                 for (int j = 0; j < nbCol; j++)
                 {
-                    resultMatrice.matrice[i,j] = matrice[i, j] + pMatrice.matrice[i,j];
+                    resultMatrice.matrice[i, j] = matrice[i, j] + pMatrice.matrice[i, j];
                 }
             }
 
@@ -309,7 +322,7 @@ namespace TpMath.Classe
                 currentMatrice++;
                 indMat++;
                 previousResultMatrice = (Matrice)resultMatrice.MemberwiseClone();
-                
+
             }
 
             //On retourne la matrice finale qui correspond au dernier resultat obtenu
@@ -323,7 +336,7 @@ namespace TpMath.Classe
         {
             switch (typeTriang)
             {
-                
+
                 case 1: //Triangulaire supérieur
                     return VerifTriangulaireSup(isStrict);
                 case 2: //Triangulaire inférieur
@@ -331,7 +344,7 @@ namespace TpMath.Classe
                 case 3: // Triangulaire inférieur ou supérieur
                     if (VerifTriangulaireInf(isStrict) == false)
                     {
-                       return VerifTriangulaireSup(isStrict);
+                        return VerifTriangulaireSup(isStrict);
                     }
                     else
                     {
@@ -369,7 +382,7 @@ namespace TpMath.Classe
                     {
                         if (i > j)
                         {
-                            if (matrice[i,j] != 0)
+                            if (matrice[i, j] != 0)
                             {
                                 return false;
                             }
@@ -435,16 +448,16 @@ namespace TpMath.Classe
                 int rowInd, colInd, nbDataNewMatrice;
                 rowInd = colInd = nbDataNewMatrice = 0;
 
-                for (int i = 0; i < newMat.NbRow; i++)
+                for (int i = 0; i < pMatrice.NbRow; i++)
                 {
-                    for (int j = 0; j < newMat.NbCol; j++)
+                    for (int j = 0; j < pMatrice.NbCol; j++)
                     {
                         //On élimine la colonne du chiffre dont on calcul le complément
                         if (i != 0 && j != col)
                         {
                             newMatrice[rowInd, colInd] = pMatrice.matrice[i, j];
                             //On passe a une autre ligne de la nouvelle matrice
-                            if (colInd == size - 2)
+                            if (colInd == size - 1)
                             {
                                 colInd = 0;
                                 rowInd++;
@@ -458,13 +471,30 @@ namespace TpMath.Classe
 
                     }
                 }
+
+                newMat.matrice = newMatrice;
+                bool isSignePos = true;
+                for (int j = 0; j < newMat.NbCol; j++)
+                {
+                    if (isSignePos)
+                    {
+                        comp += pMatrice.matrice[0, col] * ComplementAlgebrique(j, newMat);
+                        isSignePos = false;
+                    }
+                    else
+                    {
+                        comp -= pMatrice.matrice[0, col] * ComplementAlgebrique(j, newMat);
+                        isSignePos = true;
+                    }
+                }
+
             }
             else
             {
                 double[,] newMatrice = new double[2, 2];
                 int rowInd, colInd, nbDataNewMatrice;
                 rowInd = colInd = nbDataNewMatrice = 0;
-                int size = pMatrice.nbRow;
+                int size = pMatrice.nbRow - 1;
                 for (int i = 0; i < pMatrice.nbRow; i++)
                 {
                     for (int j = 0; j < pMatrice.nbCol; j++)
@@ -474,7 +504,7 @@ namespace TpMath.Classe
                         {
                             newMatrice[rowInd, colInd] = pMatrice.matrice[i, j];
 
-                            if (colInd == size - 2)
+                            if (colInd == size - 1)
                             {
                                 colInd = 0;
                                 rowInd++;
@@ -487,7 +517,7 @@ namespace TpMath.Classe
                         }
                     }
                 }
-                comp = newMatrice[0, 0] * newMatrice[1, 1] - newMatrice[0, 1] * newMatrice[1, 0];
+                comp = pMatrice.matrice[0, col] * (newMatrice[0, 0] * newMatrice[1, 1] - newMatrice[0, 1] * newMatrice[1, 0]);
             }
 
             return comp;

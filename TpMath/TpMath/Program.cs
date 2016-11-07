@@ -10,20 +10,24 @@ namespace TpMath
     class Program
     {
         static Matrice[] listeMatrice = new Matrice[50];
-        static int indexMatrice = 3; //tempo normalement 0
+        static int indexMatrice = 5; //tempo normalement 0
 
-        
+
 
         static void Main(string[] args)
         {
-            //Test initialisation de matrice fake aux positions 1 et 2 et 3
+            //Test initialisation de matrice fake aux positions 1 ,2,3,4
             Matrice mat1 = new Matrice(1);
             Matrice mat2 = new Matrice(2);
             Matrice mat3 = new Matrice(3);
+            Matrice mat4 = new Matrice(4);
+            Matrice mat5 = new Matrice(5);
 
             listeMatrice[0] = mat1;
             listeMatrice[1] = mat2;
             listeMatrice[2] = mat3;
+            listeMatrice[3] = mat4;
+            listeMatrice[4] = mat5;
 
             NavigationMenu();
         }
@@ -63,7 +67,7 @@ namespace TpMath
                     Console.Clear();
                     Console.WriteLine("Vous avez fait un choix invalide.");
                     break;
-                    
+
             }
 
             NavigationMenu();
@@ -92,7 +96,7 @@ namespace TpMath
             Console.WriteLine("3- methode rapide #3");
             methodeRempl = Int32.Parse(Console.ReadLine());
 
-            switch(methodeRempl)
+            switch (methodeRempl)
             {
                 case 1:
                     newMatrice.RemplirMatriceRapide1();
@@ -126,7 +130,8 @@ namespace TpMath
             Console.WriteLine("Quel matrice vouler vous afficher?");
             noMatrice = Int32.Parse(Console.ReadLine());
 
-            if (noMatrice > indexMatrice || noMatrice <= 0) {
+            if (noMatrice > indexMatrice || noMatrice <= 0)
+            {
                 Console.Clear();
                 Console.WriteLine("Erreur, cette matrice n'existe pas");
             }
@@ -152,7 +157,7 @@ namespace TpMath
             Console.WriteLine("4- Verifier si une matrice est triangulaire");
             operation = Int32.Parse(Console.ReadLine());
 
-            switch(operation)
+            switch (operation)
             {
                 case 1:
                     AdditionMatrice();
@@ -223,10 +228,10 @@ namespace TpMath
                     }
                 }
 
-                
+
             }
 
-            
+
 
         }
 
@@ -262,7 +267,7 @@ namespace TpMath
                 resultat.DisplayMatrice();
             }
 
-            
+
 
         }
 
@@ -387,7 +392,7 @@ namespace TpMath
                     resultat.DisplayMatrice();
                     Console.WriteLine("");
                     Console.WriteLine("Le nombre d'opération de produit est le suivant : {0}", nbOperation);
-                    
+
                 }
             }
         }
@@ -473,7 +478,7 @@ namespace TpMath
                 }
             }
 
-            
+
 
         }
 
@@ -497,7 +502,7 @@ namespace TpMath
                     EstCarre();
                     break;
                 case 2:
-                   // ProduitScalaire();
+                    // ProduitScalaire();
                     break;
                 case 3:
                     Trace();
@@ -598,7 +603,7 @@ namespace TpMath
                 if (listeMatrice[indMat1].EstCarre)
                 {
                     Console.Clear();
-                    Console.WriteLine("La trace de la matrice #{0} est {1}", matrice1, listeMatrice[indMat1].Determinant);
+                    Console.WriteLine("Le determinant de la matrice #{0} est {1}", matrice1, listeMatrice[indMat1].Determinant);
                 }
                 else
                 {
