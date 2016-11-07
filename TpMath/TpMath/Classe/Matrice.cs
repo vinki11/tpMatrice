@@ -427,37 +427,62 @@ namespace TpMath.Classe
 
             if (pMatrice.NbRow > 3)
             {
-                //do nothing for now
-            }
-            else
-            {
-                double[,] newMatrice = new double[2,2];
+                int size = pMatrice.NbRow - 1;
+                double[,] newMatrice = new double[size, size];
+                Matrice newMat = new Matrice(size, size);
+                newMat.matrice = newMatrice;
+
                 int rowInd, colInd, nbDataNewMatrice;
                 rowInd = colInd = nbDataNewMatrice = 0;
-                for (int i = 0; i < nbRow; i++)
+
+                for (int i = 0; i < newMat.NbRow; i++)
                 {
-                    for (int j = 0; j < nbCol; j++)
+                    for (int j = 0; j < newMat.NbCol; j++)
                     {
                         //On élimine la colonne du chiffre dont on calcul le complément
                         if (i != 0 && j != col)
                         {
                             newMatrice[rowInd, colInd] = pMatrice.matrice[i, j];
-                            nbDataNewMatrice++;
-
-                            switch(nbDataNewMatrice)
+                            //On passe a une autre ligne de la nouvelle matrice
+                            if (colInd == size - 2)
                             {
-                                case 1:
-                                    colInd = 1;
-                                    break;
-                                case 2:
-                                    rowInd = 1;
-                                    colInd = 0;
-                                    break;
-                                case 3:
-                                    colInd = 1;
-                                    break;
-                                default:
-                                    break;
+                                colInd = 0;
+                                rowInd++;
+                            }
+                            //On change de colonne de la nouvelle matrice
+                            else
+                            {
+                                colInd++;
+                            }
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                double[,] newMatrice = new double[2, 2];
+                int rowInd, colInd, nbDataNewMatrice;
+                rowInd = colInd = nbDataNewMatrice = 0;
+                int size = pMatrice.nbRow;
+                for (int i = 0; i < pMatrice.nbRow; i++)
+                {
+                    for (int j = 0; j < pMatrice.nbCol; j++)
+                    {
+                        //On élimine la colonne du chiffre dont on calcul le complément
+                        if (i != 0 && j != col)
+                        {
+                            newMatrice[rowInd, colInd] = pMatrice.matrice[i, j];
+
+                            if (colInd == size - 2)
+                            {
+                                colInd = 0;
+                                rowInd++;
+                            }
+                            //On change de colonne de la nouvelle matrice
+                            else
+                            {
+                                colInd++;
                             }
                         }
                     }
