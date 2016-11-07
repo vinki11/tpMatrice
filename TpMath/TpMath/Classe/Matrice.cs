@@ -13,7 +13,7 @@ namespace TpMath.Classe
         private int nbRow;
         private int nbCol;
 
-        #region Attributs
+        #region Propriétés
         public int NbRow
         {
             get
@@ -39,7 +39,19 @@ namespace TpMath.Classe
                 nbCol = value;
             }
         }
-#endregion
+
+        public bool EstCarre
+            {
+                get
+                {
+                if (nbRow == nbCol)
+                    return true;
+                else
+                    return false;
+                }
+            }
+        #endregion
+        
 
         public Matrice(int row, int column)
         {

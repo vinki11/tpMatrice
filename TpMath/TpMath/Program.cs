@@ -35,7 +35,8 @@ namespace TpMath
             Console.WriteLine("1- Créer une nouvelle Matrice");
             Console.WriteLine("2 -Afficher une Matrice");
             Console.WriteLine("3 -Faire des opération de Matrice");
-            Console.WriteLine("4- Quitter le programme");
+            Console.WriteLine("4 -Regarder les propriétés d'une Matrice");
+            Console.WriteLine("5- Quitter le programme");
             choix = Int32.Parse(Console.ReadLine());
 
             switch (choix)
@@ -50,6 +51,9 @@ namespace TpMath
                     OperationMatrice();
                     break;
                 case 4:
+                    ProprieteMatrice();
+                    break;
+                case 5:
                     Environment.Exit(0);
                     break;
 
@@ -478,6 +482,74 @@ namespace TpMath
 
             
 
+        }
+
+        #endregion
+
+        protected static void ProprieteMatrice()
+        {
+            int operation;
+
+            Console.WriteLine("");
+            Console.WriteLine("Quelle propriété voulez-vous regarder?");
+            Console.WriteLine("1- Valider si la matrice est carré");
+            Console.WriteLine("2- Valider si la matrice est réguliere");
+            Console.WriteLine("3- Retourner la trace d'une matrice");
+            Console.WriteLine("4- Retourner le déterminant d'une matrice");
+            operation = Int32.Parse(Console.ReadLine());
+
+            switch (operation)
+            {
+                case 1:
+                    EstCarre();
+                    break;
+                case 2:
+                   // ProduitScalaire();
+                    break;
+                case 3:
+                    //ProduitMatriciel();
+                    break;
+                case 4:
+                   // EstTriangulaire();
+                    break;
+
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Vous avez fait un choix invalide.");
+                    break;
+            }
+        }
+
+        #region proprietematrice
+
+        protected static void EstCarre()
+        {
+            int matrice1, indMat1;
+
+            Console.WriteLine("");
+            Console.WriteLine("Quelle matrice vouler vous valider?");
+            matrice1 = Int32.Parse(Console.ReadLine());
+
+            if (matrice1 > indexMatrice || matrice1 <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
+            }
+            else
+            {
+                indMat1 = matrice1 - 1;
+
+                if (listeMatrice[indMat1].EstCarre)
+                {
+                    Console.Clear();
+                    Console.WriteLine("La matrice #{0} est carré", matrice1);
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("La matrice #{0} n'est pas carré", matrice1);
+                }
+            }
         }
 
         #endregion
