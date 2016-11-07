@@ -10,18 +10,20 @@ namespace TpMath
     class Program
     {
         static Matrice[] listeMatrice = new Matrice[50];
-        static int indexMatrice = 2; //tempo normalement 0
+        static int indexMatrice = 3; //tempo normalement 0
 
         
 
         static void Main(string[] args)
         {
-            //Test initialisation de matrice fake aux positions 1 et 2
+            //Test initialisation de matrice fake aux positions 1 et 2 et 3
             Matrice mat1 = new Matrice(1);
             Matrice mat2 = new Matrice(2);
+            Matrice mat3 = new Matrice(3);
 
             listeMatrice[0] = mat1;
             listeMatrice[1] = mat2;
+            listeMatrice[2] = mat3;
 
             NavigationMenu();
         }
@@ -501,7 +503,7 @@ namespace TpMath
                     Trace();
                     break;
                 case 4:
-                   // EstTriangulaire();
+                    Determinant();
                     break;
 
                 default:
@@ -571,6 +573,37 @@ namespace TpMath
                 {
                     Console.Clear();
                     Console.WriteLine("Erreur, la matrice #{0} doit être carré pour pouvoir calculer sa trace", matrice1);
+                }
+            }
+        }
+
+        //Retourne le déterminant d'une matrice, si elle est carré
+        protected static void Determinant()
+        {
+            int matrice1, indMat1;
+
+            Console.WriteLine("");
+            Console.WriteLine("Quelle matrice souhaiter vous retourner le déterminant?");
+            matrice1 = Int32.Parse(Console.ReadLine());
+
+            if (matrice1 > indexMatrice || matrice1 <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
+            }
+            else
+            {
+                indMat1 = matrice1 - 1;
+
+                if (listeMatrice[indMat1].EstCarre)
+                {
+                    Console.Clear();
+                    Console.WriteLine("La trace de la matrice #{0} est {1}", matrice1, listeMatrice[indMat1].Determinant);
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Erreur, la matrice #{0} doit être carré pour pouvoir calculer son déterminant", matrice1);
                 }
             }
         }

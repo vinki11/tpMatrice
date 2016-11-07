@@ -70,8 +70,51 @@ namespace TpMath.Classe
             }
 
         }
+
+        public double Determinant
+        {
+            get
+            {
+                double determinant = 0;
+
+                //Si la taille de la matrice est de 1
+                if (nbCol == 1)
+                {
+                    determinant = matrice[0, 0];
+                }
+                //Si la taille de la matrice est de 2
+                else if (nbCol == 2)
+                {
+                    determinant = matrice[0, 0] * matrice[1, 1] - matrice[0, 1] * matrice[1, 0];
+                }          
+                //Si la taille est plus grande que 3
+                else
+                {
+                    bool signeIsPos = true;
+                    //On boucle parmis les colonnes
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        if (signeIsPos)
+                        {
+                            determinant += matrice[0, j] * ComplementAlgebrique(j, this);
+                            signeIsPos = false;
+                        }
+                        else
+                        {
+                            determinant += matrice[0, j] * - (ComplementAlgebrique(j, this));
+                            signeIsPos = true;
+                        }
+                    }
+                }
+                    
+
+
+                return determinant;
+            }
+
+        }
         #endregion
-        
+
 
         public Matrice(int row, int column)
         {
@@ -90,9 +133,13 @@ namespace TpMath.Classe
             {
                 matrice = new double[3, 3] { { 1, 2, 0 }, { 0,0, 1 }, { 0, 0, 1 } };
             }
-            else
+            else if (test == 2)
             {
                 matrice = new double[3, 3] { { 0, 0, 0 }, { 4, 0, 0 }, { 0, 2, 0 } };
+            }
+            else
+            {
+                matrice = new double[3, 3] { { 5, 3, 4 }, { 8, 1, 5}, { 3, 5, 6 } };
             }
 
         }
@@ -372,6 +419,53 @@ namespace TpMath.Classe
             }
 
             return true;
+        }
+
+        private double ComplementAlgebrique(int col, Matrice pMatrice)
+        {
+            double comp = 0;
+
+            if (pMatrice.NbRow > 3)
+            {
+                //do nothing for now
+            }
+            else
+            {
+                double[,] newMatrice = new double[2,2];
+                int rowInd, colInd, nbDataNewMatrice;
+                rowInd = colInd = nbDataNewMatrice = 0;
+                for (int i = 0; i < nbRow; i++)
+                {
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        //On élimine la colonne du chiffre dont on calcul le complément
+                        if (i != 0 && j != col)
+                        {
+                            newMatrice[rowInd, colInd] = pMatrice.matrice[i, j];
+                            nbDataNewMatrice++;
+
+                            switch(nbDataNewMatrice)
+                            {
+                                case 1:
+                                    colInd = 1;
+                                    break;
+                                case 2:
+                                    rowInd = 1;
+                                    colInd = 0;
+                                    break;
+                                case 3:
+                                    colInd = 1;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+                comp = newMatrice[0, 0] * newMatrice[1, 1] - newMatrice[0, 1] * newMatrice[1, 0];
+            }
+
+            return comp;
         }
 
     }
