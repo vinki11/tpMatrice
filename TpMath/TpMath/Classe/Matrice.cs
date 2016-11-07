@@ -146,7 +146,7 @@ namespace TpMath.Classe
         }
 
         //Méthode pour la multiplication matricielle
-        //TODO : prendre en compte plusieurs matrice -> Matrice[] pMatrice au lieu de Matrice pMatrice
+        //Oui je sais que j'aurais du simplifier cette méthode avec une méthode privé et l'appeler avec 2 matrices comme parametre au lieu de me faie un if comme j'ai fait...j'étais fatigué apparament
         public Matrice FaireProduitMatriciel(Matrice[] pMatrice, int nbMatrice, out int nbOperation)
         {
             int indMat = 0;
@@ -200,6 +200,7 @@ namespace TpMath.Classe
 
                         indResultRow++;
                     }
+                    //On ajoute au nombre d'opération le nombre d'opération de cette étape
                     nbOperation += nbRow * pMatrice[indMat].NbRow * pMatrice[indMat].NbCol;
                 }
                 else
@@ -207,7 +208,7 @@ namespace TpMath.Classe
                     for (int i = 0; i < previousResultMatrice.NbRow; i++)
                     {
                         indResultCol = 0;
-                        //Pour chaque ligne de la première matrice, on calcul une somme de produit correspondant a la position dans la matrice résultante à la colonne de la seconde matrice
+                        //Pour chaque ligne de la matrice résultat, on calcul une somme de produit correspondant a la position dans la matrice résultante à la colonne de la seconde matrice
                         while (indResultCol < resultNbCol)
                         {
                             resultat = 0;
@@ -223,6 +224,7 @@ namespace TpMath.Classe
 
                         indResultRow++;
                     }
+                    //On ajoute au nombre d'opération le nombre d'opération de cette étape
                     nbOperation += previousResultMatrice.NbRow * pMatrice[indMat].NbRow * pMatrice[indMat].NbCol;
                 }
                 currentMatrice++;
@@ -231,7 +233,7 @@ namespace TpMath.Classe
                 
             }
 
-            //Tempo grosseur matrice
+            //On retourne la matrice finale qui correspond au dernier resultat obtenu
             Matrice finalMatrice = resultMatrice;
 
 

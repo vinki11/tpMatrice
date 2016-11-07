@@ -260,7 +260,7 @@ namespace TpMath
 
         }
 
-        //Produit matriciel de deux matrice
+        //Produit matriciel de plusieurs matrices
         protected static void ProduitMatriciel()
         {
             int matrice1, matrice2, indMat1, indMat2, nbMatriceVoulu;
@@ -283,6 +283,7 @@ namespace TpMath
             else
             {
                 indMat1 = matrice1 - 1;
+                //On demande le nombre de matrice qui seront multiplier
                 Console.WriteLine("");
                 Console.WriteLine("Combien de matrice voulez vous multiplier à la suite de la première matrice?");
                 nbMatriceVoulu = Int32.Parse(Console.ReadLine());
@@ -330,7 +331,8 @@ namespace TpMath
                             {
                                 int previousInd = indMatriceMult - 1;
 
-                                
+                                //Validation si la multiplication est valide
+                                // Le nb de colonne de la premiere matrice doit etre egal au nb de ligne de la seconde matrice
                                 if (matriceToMultiply[previousInd].NbCol != listeMatrice[indMat2].NbRow)
                                 {
                                     Console.Clear();
@@ -344,6 +346,7 @@ namespace TpMath
                                 }
                             }
 
+                            //Si c'est le bon format de matrice pour la multiplication, on passe à l'autre étape
                             if (bContinu)
                             {
                                 matriceToMultiply[indMatriceMult] = listeMatrice[indMat2];
@@ -354,7 +357,6 @@ namespace TpMath
 
                         }
                     }
-                    //TODO : ici ajouter ke spa listeMatrice1 les rows mais le result du premier
                     //La matrice produit a le même nombre de ligne que la 1ere Matrice et le même nombre de colonne que la 2e matrice
                     Matrice resultat;
                     if (nbMatriceVoulu == 1)
