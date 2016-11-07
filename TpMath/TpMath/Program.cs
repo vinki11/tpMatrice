@@ -267,6 +267,8 @@ namespace TpMath
             int nbMatrice = 0;
             Matrice[] matriceToMultiply = new Matrice[50];
             int indMatriceMult = 0;
+            bool bContinu = true;
+            int nbOperation = 0;
 
             //Saisit des matrice a additionner
             Console.WriteLine("");
@@ -299,15 +301,14 @@ namespace TpMath
 
                         if (matrice2 > indexMatrice || matrice2 <= 0)
                         {
-                            Console.Clear();
+                            Console.WriteLine("");
                             Console.WriteLine("Erreur, cette matrice n'existe pas");
+                            Console.WriteLine("");
                         }
                         else
                         {
                             indMat2 = matrice2 - 1;
 
-                            matriceToMultiply[indMatriceMult] = listeMatrice[indMat2];
-                            nbMatrice++;
 
                             //Validation si la multiplication est valide
                             // Le nb de colonne de la premiere matrice doit etre egal au nb de ligne de la seconde matrice
@@ -318,28 +319,38 @@ namespace TpMath
                                     Console.Clear();
                                     Console.WriteLine("Erreur, format invalide");
                                     Console.WriteLine("Pour que le produit matriciel soit possible, le nombre de colonnes de la première matrice doit être égal au nombre de lignes de la seconde matrice");
+                                    bContinu = false;
                                 }
                                 else
                                 {
-
+                                    bContinu = true;
                                 }
                             }
                             else
                             {
                                 int previousInd = indMatriceMult - 1;
-                                if (matriceToMultiply[previousInd].NbRow != matriceToMultiply[indMatriceMult].NbCol)
+
+                                
+                                if (matriceToMultiply[previousInd].NbCol != listeMatrice[indMat2].NbRow)
                                 {
                                     Console.Clear();
                                     Console.WriteLine("Erreur, format invalide");
                                     Console.WriteLine("Pour que le produit matriciel soit possible, le nombre de la colonne de résultat de la précedente multiplication doit être égal au nombre de lignes de la nouvelle matrice");
+                                    bContinu = false;
                                 }
                                 else
                                 {
-
+                                    bContinu = true;
                                 }
                             }
 
-                            indMatriceMult++;
+                            if (bContinu)
+                            {
+                                matriceToMultiply[indMatriceMult] = listeMatrice[indMat2];
+                                nbMatrice++;
+                                indMatriceMult++;
+                            }
+
 
                         }
                     }
@@ -350,7 +361,7 @@ namespace TpMath
                     {
                         int lastInd = indMatriceMult - 1;
                         resultat = new Matrice(matriceToMultiply[lastInd].NbRow, listeMatrice[indMat1].NbCol);
-                        resultat = listeMatrice[indMat1].FaireProduitMatriciel(matriceToMultiply, nbMatrice);
+                        resultat = listeMatrice[indMat1].FaireProduitMatriciel(matriceToMultiply, nbMatrice, out nbOperation);
                     }
                     else
                     {
@@ -358,7 +369,7 @@ namespace TpMath
                         int lastInd = indMatriceMult - 1;
                         int secondLastInd = lastInd - 1;
                         resultat = new Matrice(matriceToMultiply[secondLastInd].NbRow, matriceToMultiply[lastInd].NbCol);
-                        resultat = listeMatrice[indMat1].FaireProduitMatriciel(matriceToMultiply, nbMatrice);
+                        resultat = listeMatrice[indMat1].FaireProduitMatriciel(matriceToMultiply, nbMatrice, out nbOperation);
                     }
 
 
@@ -366,6 +377,8 @@ namespace TpMath
                     //Console.WriteLine("Voici le résultat de la multiplication matricielle de la matrice #{0} et #{1} : ", matrice1, matrice2);
                     Console.WriteLine("Voici le résultat de la multiplication matricielle demandé.");
                     resultat.DisplayMatrice();
+                    Console.WriteLine("");
+                    Console.WriteLine("Le nombre d'opération de produit est le suivant : {0}", nbOperation);
 
 
 

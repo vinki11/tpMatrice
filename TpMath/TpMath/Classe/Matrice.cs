@@ -147,42 +147,95 @@ namespace TpMath.Classe
 
         //Méthode pour la multiplication matricielle
         //TODO : prendre en compte plusieurs matrice -> Matrice[] pMatrice au lieu de Matrice pMatrice
-        public Matrice FaireProduitMatriciel(Matrice[] pMatrice, int nbMatrice)
+        public Matrice FaireProduitMatriciel(Matrice[] pMatrice, int nbMatrice, out int nbOperation)
         {
-            int indMat = nbMatrice - 1;
-            Matrice testMatrice = new Matrice(nbRow, nbCol);
+            int indMat = 0;
+            int currentMatrice = 1;
+            Matrice resultMatrice = this; //Ne sera pas utiliser avec cette valeur
+            Matrice previousResultMatrice = this; //Ne sera pas utiliser avec cette valeur
+            nbOperation = 0;
 
-            int resultNbRow, resultNbCol, indResultRow, indResultCol;
-            resultNbRow = nbRow;
-            resultNbCol = pMatrice[indMat].nbCol;
-            indResultRow = indResultCol = 0;
+            int resultNbRow, resultNbCol, indResultRow, indResultCol, previousInd;
+            previousInd = resultNbCol = resultNbRow = 0;
 
-            Matrice resultMatrice = new Matrice(resultNbRow, resultNbCol);
-
-            double resultat;
-
-            // On boucle parmis les lignes de la première matrice
-            for (int i = 0; i < nbRow; i++)
+            while (currentMatrice <= nbMatrice)
             {
-                indResultCol = 0;
-                //Pour chaque ligne de la première matrice, on calcul une somme de produit correspondant a la position dans la matrice résultante à la colonne de la seconde matrice
-                while (indResultCol < resultNbCol)
+
+                indResultRow = indResultCol = 0;
+                if (currentMatrice == 1)
                 {
-                    resultat = 0;
-                    //On calcul les produits de chaque position dans ligne
-                    for (int j = 0; j < nbCol; j++)
-                    {
-                        
-                        resultat += matrice[i, j] * pMatrice[indMat].matrice[j, indResultCol];
-                    }
-                    resultMatrice.matrice[indResultRow, indResultCol] = resultat;
-                    indResultCol++;
+                    resultNbRow = nbRow;
+                    resultNbCol = pMatrice[indMat].nbCol;
                 }
+                else
+                {
+                    previousInd = indMat - 1;
+                    resultNbRow = pMatrice[previousInd].NbRow;
+                    resultNbCol = pMatrice[indMat].nbCol;
+                }
+
+                resultMatrice = new Matrice(resultNbRow, resultNbCol);
+
+                double resultat;
+
+                // On boucle parmis les lignes de la première matrice
+                if (currentMatrice == 1)
+                {
+                    for (int i = 0; i < nbRow; i++)
+                    {
+                        indResultCol = 0;
+                        //Pour chaque ligne de la première matrice, on calcul une somme de produit correspondant a la position dans la matrice résultante à la colonne de la seconde matrice
+                        while (indResultCol < resultNbCol)
+                        {
+                            resultat = 0;
+                            //On calcul les produits de chaque position dans ligne
+                            for (int j = 0; j < nbCol; j++)
+                            {
+
+                                resultat += matrice[i, j] * pMatrice[indMat].matrice[j, indResultCol];
+                            }
+                            resultMatrice.matrice[indResultRow, indResultCol] = resultat;
+                            indResultCol++;
+                        }
+
+                        indResultRow++;
+                    }
+                    nbOperation += nbRow * pMatrice[indMat].NbRow * pMatrice[indMat].NbCol;
+                }
+                else
+                {
+                    for (int i = 0; i < previousResultMatrice.NbRow; i++)
+                    {
+                        indResultCol = 0;
+                        //Pour chaque ligne de la première matrice, on calcul une somme de produit correspondant a la position dans la matrice résultante à la colonne de la seconde matrice
+                        while (indResultCol < resultNbCol)
+                        {
+                            resultat = 0;
+                            //On calcul les produits de chaque position dans ligne
+                            for (int j = 0; j < previousResultMatrice.NbCol; j++)
+                            {
+
+                                resultat += previousResultMatrice.matrice[i, j] * pMatrice[indMat].matrice[j, indResultCol];
+                            }
+                            resultMatrice.matrice[indResultRow, indResultCol] = resultat;
+                            indResultCol++;
+                        }
+
+                        indResultRow++;
+                    }
+                    nbOperation += previousResultMatrice.NbRow * pMatrice[indMat].NbRow * pMatrice[indMat].NbCol;
+                }
+                currentMatrice++;
+                indMat++;
+                previousResultMatrice = (Matrice)resultMatrice.MemberwiseClone();
                 
-                indResultRow++;
             }
 
-            return resultMatrice;
+            //Tempo grosseur matrice
+            Matrice finalMatrice = resultMatrice;
+
+
+            return finalMatrice;
         }
 
         public bool EstTriangulaire(int typeTriang, int isStrict)
