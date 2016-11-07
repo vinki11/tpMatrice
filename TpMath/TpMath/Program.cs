@@ -385,18 +385,9 @@ namespace TpMath
                     resultat.DisplayMatrice();
                     Console.WriteLine("");
                     Console.WriteLine("Le nombre d'opération de produit est le suivant : {0}", nbOperation);
-
-
-
-
+                    
                 }
-
-
-                
             }
-
-            
-
         }
 
         protected static void EstTriangulaire()
@@ -422,7 +413,7 @@ namespace TpMath
                 typeTriang = isStrict = 0;
 
                 //Valider si la matrice est carré
-                if (listeMatrice[indMat1].NbCol != listeMatrice[indMat1].NbRow)
+                if (!listeMatrice[indMat1].EstCarre)
                 {
                     Console.Clear();
                     Console.WriteLine("Vous avez entrer une matrice qui n'est pas carré");
