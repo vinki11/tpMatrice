@@ -502,7 +502,7 @@ namespace TpMath
                     EstCarre();
                     break;
                 case 2:
-                    // ProduitScalaire();
+                     EstReguliere();
                     break;
                 case 3:
                     Trace();
@@ -547,6 +547,36 @@ namespace TpMath
                 {
                     Console.Clear();
                     Console.WriteLine("La matrice #{0} n'est pas carré", matrice1);
+                }
+            }
+        }
+
+        protected static void EstReguliere()
+        {
+            int matrice1, indMat1;
+
+            Console.WriteLine("");
+            Console.WriteLine("Quelle matrice vouler vous valider?");
+            matrice1 = Int32.Parse(Console.ReadLine());
+
+            if (matrice1 > indexMatrice || matrice1 <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
+            }
+            else
+            {
+                indMat1 = matrice1 - 1;
+
+                if (listeMatrice[indMat1].EstReguliere)
+                {
+                    Console.Clear();
+                    Console.WriteLine("La matrice #{0} est réguliere", matrice1);
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("La matrice #{0} n'est pas réguliere (elle est singulière)", matrice1);
                 }
             }
         }

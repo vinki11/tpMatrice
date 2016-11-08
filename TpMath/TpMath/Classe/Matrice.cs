@@ -51,6 +51,17 @@ namespace TpMath.Classe
             }
         }
 
+        public bool EstReguliere
+        {
+            get
+            {
+                if (Determinant != 0)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
         public double Trace
         {
             get
