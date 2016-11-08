@@ -118,7 +118,7 @@ namespace TpMath
             indexMatrice++;
 
             Console.Clear();
-            Console.WriteLine("La matrice #{0} a été créer", indexMatrice);
+            Console.WriteLine("La matrice #{0} a été créée", indexMatrice);
         }
 
         //Affichage d'une matrice
@@ -153,7 +153,7 @@ namespace TpMath
             Console.WriteLine("Quelle opération voulez-vous faire?");
             Console.WriteLine("1- Additionner deux matrices");
             Console.WriteLine("2- Faire le produit scalaire d'une matrice");
-            Console.WriteLine("3- Faire le produit matriciel de deux matrices");
+            Console.WriteLine("3- Faire le produit matriciel de plusieurs matrices");
             Console.WriteLine("4- Verifier si une matrice est triangulaire");
             operation = Int32.Parse(Console.ReadLine());
 
