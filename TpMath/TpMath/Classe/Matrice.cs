@@ -244,7 +244,9 @@ namespace TpMath.Classe
             {
                 for (int j = 0; j < nbCol; j++)
                 {
-                    matrice[i, j] = 2;
+                    Console.Clear();
+                    Console.WriteLine("Saisissez la valeur à la position {0},{1}", i+1, j+1);
+                    matrice[i, j] = Int32.Parse(Console.ReadLine());
                 }
             }
         }

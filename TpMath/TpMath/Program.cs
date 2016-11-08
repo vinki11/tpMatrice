@@ -91,9 +91,9 @@ namespace TpMath
             //Remplissage des données de la matrice
             Console.WriteLine("");
             Console.WriteLine("Choississez la methode de remplissage de la matrice");
-            Console.WriteLine("1- methode rapide #1");
-            Console.WriteLine("2- methode rapide #2");
-            Console.WriteLine("3- methode rapide #3");
+            Console.WriteLine("1- Methode rapide #1");
+            Console.WriteLine("2- Methode rapide #2");
+            Console.WriteLine("3- Saisie manuelle");
             methodeRempl = Int32.Parse(Console.ReadLine());
 
             switch (methodeRempl)
