@@ -187,7 +187,7 @@ namespace TpMath.Classe
                     //On transpose cette comatrice
                     transMatrice = coMatrice.Transposee;
                     //On calcul la matrice inverse
-                    resultMatrice = DivideByDeterminant(transMatrice);
+                    resultMatrice = DivideByDeterminant(transMatrice, Determinant);
                 }
 
                 return resultMatrice;
@@ -205,7 +205,7 @@ namespace TpMath.Classe
 
         }
 
-        //Constructeur de test pour initialiser des matrices triangulaire
+        //Constructeur pour initialiser des matrices de tests au lancement initial du projet
         public Matrice(int test)
         {
             nbCol = 3;
@@ -698,7 +698,7 @@ namespace TpMath.Classe
             return comp;
         }
 
-        private Matrice DivideByDeterminant(Matrice pMatrice)
+        private Matrice DivideByDeterminant(Matrice pMatrice, double determinant)
         {
             Matrice resultMatrice = new Matrice(pMatrice.NbRow, pMatrice.NbCol);
 
@@ -706,7 +706,7 @@ namespace TpMath.Classe
             {
                 for (int j = 0; j < pMatrice.NbCol; j++)
                 {
-                    resultMatrice.matrice[i, j] = pMatrice.matrice[i, j] / Determinant;
+                    resultMatrice.matrice[i, j] = pMatrice.matrice[i, j] / determinant;
                 }
             }
 

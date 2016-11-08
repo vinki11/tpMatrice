@@ -16,7 +16,7 @@ namespace TpMath
 
         static void Main(string[] args)
         {
-            //Test initialisation de matrice fake aux positions 1 ,2,3,4
+            //On initialise des matrices de départs de différent format de manière de ne pas avoir a les créer a toute les fois pour les tests
             Matrice mat1 = new Matrice(1);
             Matrice mat2 = new Matrice(2);
             Matrice mat3 = new Matrice(3);
