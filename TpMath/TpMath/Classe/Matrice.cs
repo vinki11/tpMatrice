@@ -124,6 +124,22 @@ namespace TpMath.Classe
             }
 
         }
+
+        public Matrice Transposee
+        {
+            get
+            {
+                Matrice matTran = new Matrice(nbCol, nbRow);
+                for (int i = 0; i < nbRow; i++)
+                {
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        matTran.matrice[j, i] = matrice[i, j];
+                    }
+                }
+                return matTran;
+            }
+        }
         #endregion
 
 

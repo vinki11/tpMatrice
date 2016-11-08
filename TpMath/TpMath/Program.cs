@@ -494,6 +494,8 @@ namespace TpMath
             Console.WriteLine("2- Valider si la matrice est réguliere");
             Console.WriteLine("3- Retourner la trace d'une matrice");
             Console.WriteLine("4- Retourner le déterminant d'une matrice");
+            Console.WriteLine("5- Retourner la matrice inverse d'une matrice");
+            Console.WriteLine("6- Retourner la matrice transposé d'une matrice");
             operation = Int32.Parse(Console.ReadLine());
 
             switch (operation)
@@ -509,6 +511,12 @@ namespace TpMath
                     break;
                 case 4:
                     Determinant();
+                    break;
+                case 5:
+                    MatriceInverse();
+                    break;
+                case 6:
+                    Transpose();
                     break;
 
                 default:
@@ -643,6 +651,70 @@ namespace TpMath
             }
         }
 
-        #endregion
+        //Retourne la matrice inverse d'une matrice, si elle est carré et régulière
+        protected static void MatriceInverse()
+        {
+            int matrice1, indMat1;
+
+            Console.WriteLine("");
+            Console.WriteLine("La matrice inverse de quelle matrice voulez-vous retourner?");
+            matrice1 = Int32.Parse(Console.ReadLine());
+
+            if (matrice1 > indexMatrice || matrice1 <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
+            }
+            else
+            {
+                indMat1 = matrice1 - 1;
+
+                if (!listeMatrice[indMat1].EstCarre)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Erreur, la matrice #{0} doit être carré pour pouvoir calculer sa matrice inverse", matrice1);
+                }
+                else
+                {
+                    if (!listeMatrice[indMat1].EstReguliere)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Erreur, la matrice #{0} doit être réguliere pour pouvoir calculer sa matrice inverse", matrice1);
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+        }
+
+        //Retourne la transposé d'une matrice
+        protected static void Transpose()
+        {
+            int matrice1, indMat1;
+            Matrice matriceTransp;
+            
+
+            Console.WriteLine("");
+            Console.WriteLine("Quelle matrice souhaiter vous retourner le déterminant?");
+            matrice1 = Int32.Parse(Console.ReadLine());
+
+            if (matrice1 > indexMatrice || matrice1 <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
+            }
+            else
+            {
+                indMat1 = matrice1 - 1;
+                matriceTransp = new Matrice(listeMatrice[indMat1].NbCol, listeMatrice[indMat1].NbRow);
+                matriceTransp = listeMatrice[indMat1].Transposee;
+                Console.Clear();
+                matriceTransp.DisplayMatrice();
+            }
+        }
+
+            #endregion
     }
 }
