@@ -496,6 +496,7 @@ namespace TpMath
             Console.WriteLine("4- Retourner le déterminant d'une matrice");
             Console.WriteLine("5- Retourner la matrice inverse d'une matrice");
             Console.WriteLine("6- Retourner la matrice transposé d'une matrice");
+            Console.WriteLine("7- Retourner la comatrice d'une matrice");
             operation = Int32.Parse(Console.ReadLine());
 
             switch (operation)
@@ -517,6 +518,9 @@ namespace TpMath
                     break;
                 case 6:
                     Transpose();
+                    break;
+                case 7:
+                    Comatrice();
                     break;
 
                 default:
@@ -688,6 +692,40 @@ namespace TpMath
                 }
             }
         }
+        //Retourne la comatrice d'une matrice
+        protected static void Comatrice()
+        {
+            int matrice1, indMat1;
+            Matrice comatrice;
+
+            Console.WriteLine("");
+            Console.WriteLine("Pour quelle matrice souhaiter vous retourner la comatrice?");
+            matrice1 = Int32.Parse(Console.ReadLine());
+
+            if (matrice1 > indexMatrice || matrice1 <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, cette matrice n'existe pas");
+            }
+            else
+            {
+                indMat1 = matrice1 - 1;
+
+                if (!listeMatrice[indMat1].EstCarre)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Erreur, la matrice #{0} doit être carré pour pouvoir calculer sa comatrice", matrice1);
+                }
+                else
+                {
+                    comatrice = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat1].NbCol);
+                    comatrice = listeMatrice[indMat1].CoMatrice;
+                    Console.Clear();
+                    Console.WriteLine("La comatrice de la matrice #{0} est la suivante: ", matrice1);
+                    comatrice.DisplayMatrice();
+                }
+            }
+        }
 
         //Retourne la transposé d'une matrice
         protected static void Transpose()
@@ -697,7 +735,7 @@ namespace TpMath
             
 
             Console.WriteLine("");
-            Console.WriteLine("Quelle matrice souhaiter vous retourner le déterminant?");
+            Console.WriteLine("Pour quelle matrice souhaiter vous retourner la transposée?");
             matrice1 = Int32.Parse(Console.ReadLine());
 
             if (matrice1 > indexMatrice || matrice1 <= 0)
@@ -711,6 +749,7 @@ namespace TpMath
                 matriceTransp = new Matrice(listeMatrice[indMat1].NbCol, listeMatrice[indMat1].NbRow);
                 matriceTransp = listeMatrice[indMat1].Transposee;
                 Console.Clear();
+                Console.WriteLine("La transposée de la matrice #{0} est la suivante: ", matrice1);
                 matriceTransp.DisplayMatrice();
             }
         }

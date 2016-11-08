@@ -140,6 +140,29 @@ namespace TpMath.Classe
                 return matTran;
             }
         }
+
+        public Matrice CoMatrice
+        {
+            get
+            {
+                Matrice comatrice = new Matrice(nbRow, nbCol);
+                for (int i = 0; i < nbRow; i++)
+                {
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        if ((i + j) % 2 == 0)
+                        {
+                            comatrice.matrice[i, j] = ComplementAlgebriqueComatrice(i, j, this);
+                        }
+                        else
+                        {
+                            comatrice.matrice[i, j] = - ComplementAlgebriqueComatrice(i, j, this);
+                        }
+                    }
+                }
+                return comatrice;
+            }
+        }
         #endregion
 
 
@@ -166,7 +189,7 @@ namespace TpMath.Classe
             }
             else if (test == 3)
             {
-                matrice = new double[3, 3] { { 5, 3, 4 }, { 8, 1, 5 }, { 3, 5, 6 } };
+                matrice = new double[3, 3] { { 1, 2, -1 }, { -2, 1, 1 }, { 0, 3, -3 } };
             }
             else if (test == 4)
             {
@@ -225,7 +248,7 @@ namespace TpMath.Classe
             {
                 for (int j = 0; j < nbCol; j++)
                 {
-                    Console.Write(matrice[i, j].ToString().PadRight(3));
+                    Console.Write(matrice[i, j].ToString().PadRight(5));
                 }
                 Console.WriteLine();
             }
@@ -460,6 +483,97 @@ namespace TpMath.Classe
 
             return true;
         }
+
+        //Méthode qui popule la comatrice
+        private double ComplementAlgebriqueComatrice(int row, int col, Matrice pMatrice)
+        {
+            double comp = 0;
+
+            if (pMatrice.NbRow > 3)
+            {
+                int size = pMatrice.NbRow - 1;
+                double[,] newMatrice = new double[size, size];
+                Matrice newMat = new Matrice(size, size);
+                newMat.matrice = newMatrice;
+
+                int rowInd, colInd, nbDataNewMatrice;
+                rowInd = colInd = nbDataNewMatrice = 0;
+
+                for (int i = 0; i < pMatrice.NbRow; i++)
+                {
+                    for (int j = 0; j < pMatrice.NbCol; j++)
+                    {
+                        //On élimine la colonne du chiffre dont on calcul le complément
+                        if (i != row && j != col)
+                        {
+                            newMatrice[rowInd, colInd] = pMatrice.matrice[i, j];
+                            //On passe a une autre ligne de la nouvelle matrice
+                            if (colInd == size - 1)
+                            {
+                                colInd = 0;
+                                rowInd++;
+                            }
+                            //On change de colonne de la nouvelle matrice
+                            else
+                            {
+                                colInd++;
+                            }
+                        }
+
+                    }
+                }
+
+                newMat.matrice = newMatrice;
+                bool isSignePos = true;
+                for (int j = 0; j < newMat.NbCol; j++)
+                {
+                    if (isSignePos)
+                    {
+                        comp +=  ComplementAlgebrique(j, newMat);
+                        isSignePos = false;
+                    }
+                    else
+                    {
+                        comp -= ComplementAlgebrique(j, newMat);
+                        isSignePos = true;
+                    }
+                }
+
+            }
+            else
+            {
+                double[,] newMatrice = new double[2, 2];
+                int rowInd, colInd, nbDataNewMatrice;
+                rowInd = colInd = nbDataNewMatrice = 0;
+                int size = pMatrice.nbRow - 1;
+                for (int i = 0; i < pMatrice.nbRow; i++)
+                {
+                    for (int j = 0; j < pMatrice.nbCol; j++)
+                    {
+                        //On élimine la colonne du chiffre dont on calcul le complément
+                        if (i != row && j != col)
+                        {
+                            newMatrice[rowInd, colInd] = pMatrice.matrice[i, j];
+
+                            if (colInd == size - 1)
+                            {
+                                colInd = 0;
+                                rowInd++;
+                            }
+                            //On change de colonne de la nouvelle matrice
+                            else
+                            {
+                                colInd++;
+                            }
+                        }
+                    }
+                }
+                comp = (newMatrice[0, 0] * newMatrice[1, 1] - newMatrice[0, 1] * newMatrice[1, 0]);
+            }
+
+            return comp;
+        }
+
 
         private double ComplementAlgebrique(int col, Matrice pMatrice)
         {
