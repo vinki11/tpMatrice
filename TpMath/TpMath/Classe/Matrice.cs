@@ -163,9 +163,22 @@ namespace TpMath.Classe
                 Matrice transMatrice = new Matrice(nbRow, nbCol);
 
                 //Verification si la matrice est triangulaire
-                if (EstTriangulaire(3,2))
+                if (EstTriangulaire(1,2) && EstTriangulaire(2,2))
                 {
-
+                    for (int i = 0; i < nbRow; i++)
+                    {
+                        for (int j = 0; j < nbCol; j++)
+                        {
+                            if (i == j)
+                            {
+                                resultMatrice.matrice[i, j] = (1 / matrice[i, j]);
+                            }
+                            else
+                            {
+                                resultMatrice.matrice[i, j] = 0;
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -199,7 +212,7 @@ namespace TpMath.Classe
             nbRow = 3;
             if (test == 1)
             {
-                matrice = new double[3, 3] { { 1, 2, 0 }, { 0, 0, 1 }, { 0, 0, 1 } };
+                matrice = new double[3, 3] { { 2, 0, 0 }, { 0, 3, 0 }, { 0, 0, 4 } };
             }
             else if (test == 2)
             {
@@ -266,6 +279,7 @@ namespace TpMath.Classe
             {
                 for (int j = 0; j < nbCol; j++)
                 {
+                    //On arrondi les nombres à virgules : perte de précision mais cela reste représentatif tout en étant lisible
                     Console.Write(Math.Round(matrice[i, j],2).ToString().PadRight(6));
                 }
                 Console.WriteLine();
