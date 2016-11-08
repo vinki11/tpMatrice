@@ -659,6 +659,7 @@ namespace TpMath
         protected static void MatriceInverse()
         {
             int matrice1, indMat1;
+            Matrice matriceInverse;
 
             Console.WriteLine("");
             Console.WriteLine("La matrice inverse de quelle matrice voulez-vous retourner?");
@@ -672,6 +673,7 @@ namespace TpMath
             else
             {
                 indMat1 = matrice1 - 1;
+                matriceInverse = new Matrice(listeMatrice[indMat1].NbRow, listeMatrice[indMat1].NbCol);
 
                 if (!listeMatrice[indMat1].EstCarre)
                 {
@@ -687,7 +689,10 @@ namespace TpMath
                     }
                     else
                     {
-
+                        matriceInverse = listeMatrice[indMat1].MatriceInverse;
+                        Console.Clear();
+                        Console.WriteLine("La matrice inverse de la matrice #{0} est la suivante: ", matrice1);
+                        matriceInverse.DisplayMatrice();
                     }
                 }
             }

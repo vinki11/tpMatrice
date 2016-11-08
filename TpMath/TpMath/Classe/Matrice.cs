@@ -20,11 +20,6 @@ namespace TpMath.Classe
             {
                 return nbRow;
             }
-
-            set
-            {
-                nbRow = value;
-            }
         }
 
         public int NbCol
@@ -32,11 +27,6 @@ namespace TpMath.Classe
             get
             {
                 return nbCol;
-            }
-
-            set
-            {
-                nbCol = value;
             }
         }
 
@@ -163,6 +153,34 @@ namespace TpMath.Classe
                 return comatrice;
             }
         }
+
+        public Matrice MatriceInverse
+        {
+            get
+            {
+                Matrice resultMatrice = new Matrice(nbRow, nbCol);
+                Matrice coMatrice = new Matrice(nbRow, nbCol);
+                Matrice transMatrice = new Matrice(nbRow, nbCol);
+
+                //Verification si la matrice est triangulaire
+                if (EstTriangulaire(3,2))
+                {
+
+                }
+                else
+                {
+                    //On retrouve la comatrice de la matrice
+                    coMatrice = CoMatrice;
+                    //On transpose cette comatrice
+                    transMatrice = coMatrice.Transposee;
+                    //On calcul la matrice inverse
+                    resultMatrice = DivideByDeterminant(transMatrice);
+                }
+
+                return resultMatrice;
+
+            }
+        }
         #endregion
 
 
@@ -241,14 +259,14 @@ namespace TpMath.Classe
                 }
             }
         }
-
+        //Je n'affiche pas les fractions par soucis de simplicité car c'était pas demandé. J'affiche 2 chiffre après la virgule. Le padRight est pour la visibilité
         public void DisplayMatrice()
         {
             for (int i = 0; i < nbRow; i++)
             {
                 for (int j = 0; j < nbCol; j++)
                 {
-                    Console.Write(matrice[i, j].ToString().PadRight(5));
+                    Console.Write(Math.Round(matrice[i, j],2).ToString().PadRight(6));
                 }
                 Console.WriteLine();
             }
@@ -662,6 +680,21 @@ namespace TpMath.Classe
             }
 
             return comp;
+        }
+
+        private Matrice DivideByDeterminant(Matrice pMatrice)
+        {
+            Matrice resultMatrice = new Matrice(pMatrice.NbRow, pMatrice.NbCol);
+
+            for (int i = 0; i < pMatrice.NbRow; i++)
+            {
+                for (int j = 0; j < pMatrice.NbCol; j++)
+                {
+                    resultMatrice.matrice[i, j] = pMatrice.matrice[i, j] / Determinant;
+                }
+            }
+
+            return resultMatrice;
         }
 
     }
