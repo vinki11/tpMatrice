@@ -338,16 +338,13 @@ namespace TpMath.Classe
             {
 
                 indResultRow = indResultCol = 0;
-                if (currentMatrice == 1)
-                {
-                    resultNbRow = nbRow;
-                    resultNbCol = pMatrice[indMat].nbCol;
-                }
-                else
+
+
+                resultNbRow = nbRow;
+                resultNbCol = pMatrice[indMat].nbCol;
+                if (currentMatrice != 1) 
                 {
                     previousInd = indMat - 1;
-                    resultNbRow = pMatrice[previousInd].NbRow;
-                    resultNbCol = pMatrice[indMat].nbCol;
                 }
 
                 resultMatrice = new Matrice(resultNbRow, resultNbCol);
