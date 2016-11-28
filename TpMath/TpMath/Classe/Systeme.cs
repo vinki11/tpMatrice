@@ -154,7 +154,10 @@ namespace TpMath.Classe
 
         public void DisplaySystème()
         {
-
+            Console.WriteLine("Matrice A");
+            MatriceA.DisplayMatrice();
+            Console.WriteLine("Matrice B");
+            MatriceB.DisplayMatrice();
         }
     }
 }

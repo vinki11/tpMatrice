@@ -138,7 +138,7 @@ namespace TpMath
         protected static void AfficherUneMatrice()
         {
             int noMatrice;
-            //Demande de quel matrice que l'on veut saisir
+            //Demande de quel matrice que l'on veut afficher
             Console.WriteLine("");
             Console.WriteLine("Quel matrice vouler vous afficher?");
             noMatrice = Int32.Parse(Console.ReadLine());
@@ -793,7 +793,7 @@ namespace TpMath
                     AjouterSysteme();
                     break;
                 case 2:
-                    //EstReguliere();
+                    AfficherSysteme();
                     break;
                 case 3:
                     Cramer();
@@ -836,6 +836,29 @@ namespace TpMath
 
             Console.Clear();
             Console.WriteLine("Le système #{0} a été créée", indexSysteme);
+        }
+
+        //Affichage d'un systeme
+        protected static void AfficherSysteme()
+        {
+            int noSysteme;
+            //Demande de quel systeme que l'on veut afficher
+            Console.WriteLine("");
+            Console.WriteLine("Quel système vouler vous afficher?");
+            noSysteme = Int32.Parse(Console.ReadLine());
+
+            if (noSysteme > indexSysteme || noSysteme <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, ce système n'existe pas");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Affichage du système #{0}", noSysteme);
+                noSysteme--;
+                listeSysteme[noSysteme].DisplaySystème();
+            }
         }
 
         protected static void Cramer()
