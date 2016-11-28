@@ -71,8 +71,6 @@ namespace TpMath.Classe
             }
             else
             {
-                //Validation si l'inconu est horizontal ou vertical TO DO
-
                 for (int col = 0; col < matriceA.NbCol; col++)
                 {
 
@@ -104,7 +102,7 @@ namespace TpMath.Classe
                 double[,] returnTab = new double[N, 1];
                 for (int ctr = 0; ctr < N; ctr++)
                 {
-                    returnTab[ctr,0] = detN[ctr];
+                    returnTab[ctr,0] = detN[ctr] / detA;
                 }
 
                 returnMatrice.matrice = returnTab;
