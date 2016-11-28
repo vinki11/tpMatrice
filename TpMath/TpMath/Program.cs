@@ -10,8 +10,9 @@ namespace TpMath
     class Program
     {
         static Matrice[] listeMatrice = new Matrice[50];
+        static Systeme[] listeSysteme = new Systeme[50];
         static int indexMatrice = 5; //tempo normalement 0
-
+        static int indexSysteme = 1;
 
 
         static void Main(string[] args)
@@ -23,11 +24,16 @@ namespace TpMath
             Matrice mat4 = new Matrice(4);
             Matrice mat5 = new Matrice(5);
 
+            Systeme sys1 = new Systeme(1);
+
             listeMatrice[0] = mat1;
             listeMatrice[1] = mat2;
             listeMatrice[2] = mat3;
             listeMatrice[3] = mat4;
             listeMatrice[4] = mat5;
+
+            listeSysteme[0] = sys1;
+            
 
             NavigationMenu();
         }
@@ -42,7 +48,8 @@ namespace TpMath
             Console.WriteLine("2 -Afficher une Matrice");
             Console.WriteLine("3 -Faire des opération de Matrice");
             Console.WriteLine("4 -Regarder les propriétés d'une Matrice");
-            Console.WriteLine("5- Quitter le programme");
+            Console.WriteLine("5 -Faire des opérations de système d'équation");
+            Console.WriteLine("6- Quitter le programme");
             choix = Int32.Parse(Console.ReadLine());
 
             switch (choix)
@@ -60,6 +67,9 @@ namespace TpMath
                     ProprieteMatrice();
                     break;
                 case 5:
+                    MenuSysteme();
+                    break;
+                case 6:
                     Environment.Exit(0);
                     break;
 
@@ -73,6 +83,9 @@ namespace TpMath
             NavigationMenu();
 
         }
+
+        
+
         //Ajout d'une matrice
         protected static void AjouterUneMatrice()
         {
@@ -759,6 +772,72 @@ namespace TpMath
             }
         }
 
-            #endregion
+        #endregion
+
+        //Toute les opérations de système d'équation se font ici
+        protected static void MenuSysteme()
+        {
+            int operation;
+
+            Console.WriteLine("");
+            Console.WriteLine("Que voulez-vous faire?");
+            Console.WriteLine("1- Saisir un nouveau système");
+            Console.WriteLine("2- Afficher un système");
+            Console.WriteLine("3- Trouver X Par Cramer");
+            operation = Int32.Parse(Console.ReadLine());
+
+            switch (operation)
+            {
+                case 1:
+                    //EstCarre();
+                    break;
+                case 2:
+                    //EstReguliere();
+                    break;
+                case 3:
+                    Cramer();
+                    break;
+
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Vous avez fait un choix invalide.");
+                    break;
+            }
+        }
+
+        #region Systeme D'équation
+        protected static void Cramer()
+        {
+            int sys1, ind1, newNbCol , newNbRow;
+            Matrice matResult;
+            Systeme systeme1;
+            Console.WriteLine("");
+            Console.WriteLine("Saississez le système voulu.");
+            sys1 = Int32.Parse(Console.ReadLine());
+            ind1 = sys1 - 1;
+
+
+            systeme1 = listeSysteme[ind1];
+
+            newNbCol = systeme1.MatriceB.NbCol;
+            newNbRow = systeme1.MatriceB.NbRow;
+            matResult = new Matrice(newNbRow, newNbCol);
+
+            matResult = systeme1.TrouverXParCramer();
+
+            if(matResult == null)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, le déterminant de la matrice est nul.");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Voici le résultat par Cramer.");
+                matResult.DisplayMatrice();
+            }
+        }
+        #endregion
+
     }
 }

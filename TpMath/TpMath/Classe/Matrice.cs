@@ -9,7 +9,7 @@ namespace TpMath.Classe
     class Matrice
     {
 
-        double[,] matrice;
+        public double[,] matrice;
         private int nbRow;
         private int nbCol;
 
@@ -212,7 +212,8 @@ namespace TpMath.Classe
             nbRow = 3;
             if (test == 1)
             {
-                matrice = new double[3, 3] { { 2, 0, 0 }, { 0, 3, 0 }, { 0, 0, 4 } };
+                //matrice = new double[3, 3] { { 2, 0, 0 }, { 0, 3, 0 }, { 0, 0, 4 } };
+                matrice = new double[3, 3] { { 2, 1, 3 }, { 1, -2, 1 }, { 1, 1, -2 } };
             }
             else if (test == 2)
             {
