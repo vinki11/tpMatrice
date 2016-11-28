@@ -154,10 +154,55 @@ namespace TpMath.Classe
 
         public void DisplaySystème()
         {
-            Console.WriteLine("Matrice A");
-            MatriceA.DisplayMatrice();
-            Console.WriteLine("Matrice B");
-            MatriceB.DisplayMatrice();
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < N; j++)
+                {
+                    if (j != 0)
+                    {
+                        if (matriceA.matrice[i, j] == 1)
+                        {
+                            Console.Write(" + ");
+                            Console.Write("x" + (j + 1));
+                        }
+                        else if (matriceA.matrice[i, j] == -1)
+                        {
+                            Console.Write(" - ");
+                            Console.Write("x" + (j + 1));
+                        }
+                        else if (matriceA.matrice[i, j] > 0)
+                        {
+                            Console.Write(" + ");
+                            Console.Write(matriceA.matrice[i, j].ToString() + "x" + (j + 1));
+                        }
+                        else
+                        {
+                            Console.Write(" - ");
+                            double positivNumber = matriceA.matrice[i, j] * -1;
+                            Console.Write(positivNumber.ToString() + "x" + (j + 1));
+                        }
+                        
+                    }
+                    else
+                    {   
+                        if (matriceA.matrice[i, j] == 1)
+                        {
+                            Console.Write("x" + (j + 1));
+                        }
+                        else if (matriceA.matrice[i, j] == -1)
+                        {
+                            Console.Write("-x" + (j + 1));
+                        }
+                        else
+                        {
+                            Console.Write(matriceA.matrice[i, j].ToString() + "x" + (j + 1));
+                        }
+                       
+                    }
+                }
+                Console.Write(" = " + matriceB.matrice[i, 0].ToString());
+                Console.WriteLine();
+            }
         }
     }
 }
