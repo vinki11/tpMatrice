@@ -783,13 +783,14 @@ namespace TpMath
             Console.WriteLine("Que voulez-vous faire?");
             Console.WriteLine("1- Saisir un nouveau système");
             Console.WriteLine("2- Afficher un système");
-            Console.WriteLine("3- Trouver X Par Cramer");
+            Console.WriteLine("3- Trouver X par Cramer");
+            Console.WriteLine("4- Trouver X par Inversion");
             operation = Int32.Parse(Console.ReadLine());
 
             switch (operation)
             {
                 case 1:
-                    //EstCarre();
+                    AjouterSysteme();
                     break;
                 case 2:
                     //EstReguliere();
@@ -806,6 +807,34 @@ namespace TpMath
         }
 
         #region Systeme D'équation
+        //Ajout d'un système
+        protected static void AjouterSysteme()
+        {
+            Systeme newSysteme;
+            int n;
+
+            //Saisit des paramètre de la matrice
+            Console.WriteLine("");
+            Console.WriteLine("Veuillez entrer le N du système");
+            n = Int32.Parse(Console.ReadLine());
+            
+            Matrice newMatriceA = new Matrice(n, n);
+            Matrice newMatriceB = new Matrice(n, 1);
+
+            //On remplit les matrices du nouveau système
+            newMatriceA.RemplirMatrice(0);
+            newMatriceB.RemplirMatrice(1);
+
+            newSysteme = new Systeme(newMatriceA, newMatriceB, n);
+
+            //Ajout du systeme à la liste des Systemes
+            listeSysteme[indexSysteme] = newSysteme;
+            indexSysteme++;
+
+            Console.Clear();
+            Console.WriteLine("Le système #{0} a été créée", indexSysteme);
+        }
+
         protected static void Cramer()
         {
             int sys1, ind1, newNbCol , newNbRow;

@@ -252,6 +252,28 @@ namespace TpMath.Classe
             }
         }
 
+        //Methode remplir matrice des système
+        public void RemplirMatrice(int nbMat)
+        {
+            for (int i = 0; i < nbRow; i++)
+            {
+                for (int j = 0; j < nbCol; j++)
+                {
+                    Console.Clear();
+                    if (nbMat == 0)
+                    {
+                        Console.WriteLine("Veuillez entrer les données de la matrice A");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Veuillez entrer les données de la matrice B");
+                    }
+                    Console.WriteLine("Saisissez la valeur à la position {0},{1}", i + 1, j + 1);
+                    matrice[i, j] = Int32.Parse(Console.ReadLine());
+                }
+            }
+        }
+
         //Methode temporaire pour initialiser différentes sortes de matrices
         public void RemplirMatriceRapide1()
         {

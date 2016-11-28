@@ -56,6 +56,14 @@ namespace TpMath.Classe
 
         }
 
+        public Systeme(Matrice a, Matrice b, int n)
+        {
+            this.n = n;
+            matriceA = new Matrice(n, n);
+            matriceB = new Matrice(n, 1);
+            matriceA.matrice = a.matrice;
+            matriceB.matrice = b.matrice;
+        }
         public Matrice TrouverXParCramer()
         {
             double detA;
