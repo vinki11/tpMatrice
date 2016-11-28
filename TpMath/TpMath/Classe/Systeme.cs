@@ -54,6 +54,17 @@ namespace TpMath.Classe
                 n = 3;
             }
 
+            if (test == 2)
+            {
+                matrice1 = new double[3, 3] { { 2, -1, 0 }, { -1, 4, -1 }, {0, -1, 4 } };
+                matrice2 = new double[3, 1] { { 6 }, { 2 }, { 1 } };
+                matriceA = new Matrice(3, 3);
+                matriceB = new Matrice(3, 1);
+                matriceA.matrice = matrice1;
+                matriceB.matrice = matrice2;
+                n = 3;
+            }
+
         }
 
         public Systeme(Matrice a, Matrice b, int n)
@@ -170,7 +181,7 @@ namespace TpMath.Classe
                             Console.Write(" - ");
                             Console.Write("x" + (j + 1));
                         }
-                        else if (matriceA.matrice[i, j] > 0)
+                        else if (matriceA.matrice[i, j] >= 0)
                         {
                             Console.Write(" + ");
                             Console.Write(matriceA.matrice[i, j].ToString() + "x" + (j + 1));

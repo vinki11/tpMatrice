@@ -11,8 +11,8 @@ namespace TpMath
     {
         static Matrice[] listeMatrice = new Matrice[50];
         static Systeme[] listeSysteme = new Systeme[50];
-        static int indexMatrice = 5; //tempo normalement 0
-        static int indexSysteme = 1;
+        static int indexMatrice = 5; //a cause des matrices deja créé
+        static int indexSysteme = 2; //a cause des matrices deja créé
 
 
         static void Main(string[] args)
@@ -24,7 +24,9 @@ namespace TpMath
             Matrice mat4 = new Matrice(4);
             Matrice mat5 = new Matrice(5);
 
+            //On initialise des systeme dequation de départ
             Systeme sys1 = new Systeme(1);
+            Systeme sys2 = new Systeme(2);
 
             listeMatrice[0] = mat1;
             listeMatrice[1] = mat2;
@@ -33,7 +35,8 @@ namespace TpMath
             listeMatrice[4] = mat5;
 
             listeSysteme[0] = sys1;
-            
+            listeSysteme[1] = sys2;
+
 
             NavigationMenu();
         }
