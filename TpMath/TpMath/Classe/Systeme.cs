@@ -64,6 +64,7 @@ namespace TpMath.Classe
             matriceA.matrice = a.matrice;
             matriceB.matrice = b.matrice;
         }
+
         public Matrice TrouverXParCramer()
         {
             double detA;
@@ -121,7 +122,29 @@ namespace TpMath.Classe
 
         public Matrice TrouverXParInversionMatricielle()
         {
-            return null;
+            double detA;
+            Matrice returnMatrice = new Matrice(N,1);
+            Matrice newMat = new Matrice(N, N);
+            int useless = 0;
+
+            //On va chercher le déterminant de la matrice
+            detA = matriceA.Determinant;
+
+            if (detA == 0)
+            {
+                return null;
+            }
+            else
+            {
+                Matrice[] matriceToMultiply = new Matrice[1];
+                matriceToMultiply[0] = matriceB;
+                newMat = matriceA.MatriceInverse;
+                returnMatrice =  newMat.FaireProduitMatriciel(matriceToMultiply, 1, out useless);
+
+                return returnMatrice;
+
+            }
+            
         }
 
         public Matrice TrouverXParJacobi(double epsilon)

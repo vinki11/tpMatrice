@@ -798,6 +798,9 @@ namespace TpMath
                 case 3:
                     Cramer();
                     break;
+                case 4:
+                    InversionMatricielle();
+                    break;
 
                 default:
                     Console.Clear();
@@ -863,6 +866,38 @@ namespace TpMath
             {
                 Console.Clear();
                 Console.WriteLine("Voici le résultat par Cramer.");
+                matResult.DisplayMatrice();
+            }
+        }
+
+        protected static void InversionMatricielle()
+        {
+            int sys1, ind1, newNbCol, newNbRow;
+            Matrice matResult;
+            Systeme systeme1;
+            Console.WriteLine("");
+            Console.WriteLine("Saississez le système voulu.");
+            sys1 = Int32.Parse(Console.ReadLine());
+            ind1 = sys1 - 1;
+
+
+            systeme1 = listeSysteme[ind1];
+
+            newNbCol = systeme1.MatriceB.NbCol;
+            newNbRow = systeme1.MatriceB.NbRow;
+            matResult = new Matrice(newNbRow, newNbCol);
+
+            matResult = systeme1.TrouverXParInversionMatricielle();
+
+            if (matResult == null)
+            {
+                Console.Clear();
+                Console.WriteLine("Erreur, le déterminant de la matrice est nul.");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Voici le résultat par Inversion Matricielle.");
                 matResult.DisplayMatrice();
             }
         }
