@@ -56,8 +56,8 @@ namespace TpMath.Classe
 
             if (test == 2)
             {
-                matrice1 = new double[3, 3] { { 2, -1, 0 }, { -1, 4, -1 }, {0, -1, 4 } };
-                matrice2 = new double[3, 1] { { 6 }, { 2 }, { 1 } };
+                matrice1 = new double[3, 3] { { 4, -1, 0 }, { -1, 4, -1 }, { 0, -1, 4 } };
+                matrice2 = new double[3, 1] { { 100 }, { 100 }, { 100 } };
                 matriceA = new Matrice(3, 3);
                 matriceB = new Matrice(3, 1);
                 matriceA.matrice = matrice1;
@@ -85,7 +85,7 @@ namespace TpMath.Classe
             //On va chercher le déterminant de la matrice
             detA = matriceA.Determinant;
 
-            if (detA == 0)
+            if (!matriceA.EstReguliere)
             {
                 return null;
             }
@@ -122,7 +122,7 @@ namespace TpMath.Classe
                 double[,] returnTab = new double[N, 1];
                 for (int ctr = 0; ctr < N; ctr++)
                 {
-                    returnTab[ctr,0] = detN[ctr] / detA;
+                    returnTab[ctr, 0] = detN[ctr] / detA;
                 }
 
                 returnMatrice.matrice = returnTab;
@@ -133,15 +133,14 @@ namespace TpMath.Classe
 
         public Matrice TrouverXParInversionMatricielle()
         {
-            double detA;
-            Matrice returnMatrice = new Matrice(N,1);
+            Matrice returnMatrice = new Matrice(N, 1);
             Matrice newMat = new Matrice(N, N);
             int useless = 0;
 
             //On va chercher le déterminant de la matrice
-            detA = matriceA.Determinant;
 
-            if (detA == 0)
+
+            if (!matriceA.EstReguliere)
             {
                 return null;
             }
@@ -150,17 +149,51 @@ namespace TpMath.Classe
                 Matrice[] matriceToMultiply = new Matrice[1];
                 matriceToMultiply[0] = matriceB;
                 newMat = matriceA.MatriceInverse;
-                returnMatrice =  newMat.FaireProduitMatriciel(matriceToMultiply, 1, out useless);
+                returnMatrice = newMat.FaireProduitMatriciel(matriceToMultiply, 1, out useless);
 
                 return returnMatrice;
 
             }
-            
+
         }
 
         public Matrice TrouverXParJacobi(double epsilon)
         {
-            return null;
+            if (!matriceA.EstStrictementDominante)
+            {
+                return null;
+            }
+            else
+            {
+                double somme, res;
+                Boolean fin;
+
+                Matrice newMat = new Matrice(N, 1);
+                Matrice oldMat = new Matrice(N, 1);
+
+                do
+                {
+                    fin = true;
+                    for (int i = 0; i < matriceB.NbRow; i++)
+                    {
+                        somme = 0;
+                        for (int j = 0; j < matriceB.NbRow; j++)
+                        {
+                            if (j != i)
+                                somme += matriceA.matrice[i, j] * oldMat.matrice[j, 0];
+                        }
+                        res = 1 / matriceA.matrice[i, i] * (matriceB.matrice[i, 0] - somme);
+                        newMat.matrice[i, 0] = res;
+                        if (res - oldMat.matrice[i, 0] > epsilon)
+                            fin = false;
+                    }
+                    //Console.WriteLine("Matrice temp = \n" + matriceX); Console.ReadLine();
+                    oldMat.Copier(newMat);
+
+                } while (fin == false);
+
+                return newMat;
+            }
         }
 
         public void DisplaySystème()
@@ -192,10 +225,10 @@ namespace TpMath.Classe
                             double positivNumber = matriceA.matrice[i, j] * -1;
                             Console.Write(positivNumber.ToString() + "x" + (j + 1));
                         }
-                        
+
                     }
                     else
-                    {   
+                    {
                         if (matriceA.matrice[i, j] == 1)
                         {
                             Console.Write("x" + (j + 1));
@@ -208,7 +241,7 @@ namespace TpMath.Classe
                         {
                             Console.Write(matriceA.matrice[i, j].ToString() + "x" + (j + 1));
                         }
-                       
+
                     }
                 }
                 Console.Write(" = " + matriceB.matrice[i, 0].ToString());

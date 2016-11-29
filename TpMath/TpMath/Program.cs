@@ -75,7 +75,28 @@ namespace TpMath
                 case 6:
                     Environment.Exit(0);
                     break;
+                case 7: //tempo
+                    Console.Write("Matrice 1");
+                    if (listeMatrice[0].EstStrictementDominante)
+                    {
+                        Console.WriteLine("Est strictement dominante");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Est pas dominante");
+                    }
 
+                    Console.Write("Matrice 2");
+                    if (listeMatrice[1].EstStrictementDominante)
+                    {
+                        Console.WriteLine("Est strictement dominante");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Est pas dominante");
+                    }
+
+                    break;
                 default:
                     Console.Clear();
                     Console.WriteLine("Vous avez fait un choix invalide.");
@@ -87,7 +108,7 @@ namespace TpMath
 
         }
 
-        
+
 
         //Ajout d'une matrice
         protected static void AjouterUneMatrice()
@@ -521,7 +542,7 @@ namespace TpMath
                     EstCarre();
                     break;
                 case 2:
-                     EstReguliere();
+                    EstReguliere();
                     break;
                 case 3:
                     Trace();
@@ -753,7 +774,7 @@ namespace TpMath
         {
             int matrice1, indMat1;
             Matrice matriceTransp;
-            
+
 
             Console.WriteLine("");
             Console.WriteLine("Pour quelle matrice souhaiter vous retourner la transposée?");
@@ -788,6 +809,7 @@ namespace TpMath
             Console.WriteLine("2- Afficher un système");
             Console.WriteLine("3- Trouver X par Cramer");
             Console.WriteLine("4- Trouver X par Inversion");
+            Console.WriteLine("5- Trouver X par Jacobi");
             operation = Int32.Parse(Console.ReadLine());
 
             switch (operation)
@@ -804,7 +826,9 @@ namespace TpMath
                 case 4:
                     InversionMatricielle();
                     break;
-
+                case 5:
+                    Jacobi();
+                    break;
                 default:
                     Console.Clear();
                     Console.WriteLine("Vous avez fait un choix invalide.");
@@ -823,7 +847,7 @@ namespace TpMath
             Console.WriteLine("");
             Console.WriteLine("Veuillez entrer le N du système");
             n = Int32.Parse(Console.ReadLine());
-            
+
             Matrice newMatriceA = new Matrice(n, n);
             Matrice newMatriceB = new Matrice(n, 1);
 
@@ -866,33 +890,41 @@ namespace TpMath
 
         protected static void Cramer()
         {
-            int sys1, ind1, newNbCol , newNbRow;
+            int sys1, ind1, newNbCol, newNbRow;
             Matrice matResult;
             Systeme systeme1;
             Console.WriteLine("");
             Console.WriteLine("Saississez le système voulu.");
             sys1 = Int32.Parse(Console.ReadLine());
-            ind1 = sys1 - 1;
 
 
-            systeme1 = listeSysteme[ind1];
-
-            newNbCol = systeme1.MatriceB.NbCol;
-            newNbRow = systeme1.MatriceB.NbRow;
-            matResult = new Matrice(newNbRow, newNbCol);
-
-            matResult = systeme1.TrouverXParCramer();
-
-            if(matResult == null)
+            if (sys1 > indexSysteme || sys1 <= 0)
             {
                 Console.Clear();
-                Console.WriteLine("Erreur, le déterminant de la matrice est nul.");
+                Console.WriteLine("Erreur, ce système n'existe pas");
             }
             else
             {
-                Console.Clear();
-                Console.WriteLine("Voici le résultat par Cramer.");
-                matResult.DisplayMatrice();
+                ind1 = sys1 - 1;
+                systeme1 = listeSysteme[ind1];
+
+                newNbCol = systeme1.MatriceB.NbCol;
+                newNbRow = systeme1.MatriceB.NbRow;
+                matResult = new Matrice(newNbRow, newNbCol);
+
+                matResult = systeme1.TrouverXParCramer();
+
+                if (matResult == null)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Erreur, le déterminant de la matrice est nul.");
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Voici le résultat par Cramer.");
+                    matResult.DisplayMatrice();
+                }
             }
         }
 
@@ -904,27 +936,81 @@ namespace TpMath
             Console.WriteLine("");
             Console.WriteLine("Saississez le système voulu.");
             sys1 = Int32.Parse(Console.ReadLine());
-            ind1 = sys1 - 1;
 
-
-            systeme1 = listeSysteme[ind1];
-
-            newNbCol = systeme1.MatriceB.NbCol;
-            newNbRow = systeme1.MatriceB.NbRow;
-            matResult = new Matrice(newNbRow, newNbCol);
-
-            matResult = systeme1.TrouverXParInversionMatricielle();
-
-            if (matResult == null)
+            if (sys1 > indexSysteme || sys1 <= 0)
             {
                 Console.Clear();
-                Console.WriteLine("Erreur, le déterminant de la matrice est nul.");
+                Console.WriteLine("Erreur, ce système n'existe pas");
             }
             else
             {
+                ind1 = sys1 - 1;
+                systeme1 = listeSysteme[ind1];
+
+                newNbCol = systeme1.MatriceB.NbCol;
+                newNbRow = systeme1.MatriceB.NbRow;
+                matResult = new Matrice(newNbRow, newNbCol);
+
+                matResult = systeme1.TrouverXParInversionMatricielle();
+
+                if (matResult == null)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Erreur, le déterminant de la matrice est nul.");
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Voici le résultat par Inversion Matricielle.");
+                    matResult.DisplayMatrice();
+                }
+            }
+        }
+
+
+        protected static void Jacobi()
+        {
+            int sys1, ind1, newNbCol, newNbRow;
+            double epsilon;
+            Matrice matResult;
+            Systeme systeme1;
+            Console.WriteLine("");
+            Console.WriteLine("Saississez le système voulu.");
+            sys1 = Int32.Parse(Console.ReadLine());
+
+            if (sys1 > indexSysteme || sys1 <= 0)
+            {
                 Console.Clear();
-                Console.WriteLine("Voici le résultat par Inversion Matricielle.");
-                matResult.DisplayMatrice();
+                Console.WriteLine("Erreur, ce système n'existe pas");
+            }
+            else
+            {
+
+                ind1 = sys1 - 1;
+
+                systeme1 = listeSysteme[ind1];
+
+                Console.WriteLine("");
+                Console.WriteLine("Saississez l'epsilon voulu.");
+                epsilon = Double.Parse(Console.ReadLine());
+
+                newNbCol = systeme1.MatriceB.NbCol;
+                newNbRow = systeme1.MatriceB.NbRow;
+                matResult = new Matrice(newNbRow, newNbCol);
+
+                matResult = systeme1.TrouverXParJacobi(epsilon);
+
+                if (matResult == null)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Erreur, la matrice n'est pas strictement dominante diagonalement.");
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Voici le résultat par la méthode de Jacobi.");
+                    matResult.DisplayMatrice();
+                }
             }
         }
         #endregion

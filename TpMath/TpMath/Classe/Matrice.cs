@@ -146,7 +146,7 @@ namespace TpMath.Classe
                         }
                         else
                         {
-                            comatrice.matrice[i, j] = - ComplementAlgebriqueComatrice(i, j, this);
+                            comatrice.matrice[i, j] = -ComplementAlgebriqueComatrice(i, j, this);
                         }
                     }
                 }
@@ -163,7 +163,7 @@ namespace TpMath.Classe
                 Matrice transMatrice = new Matrice(nbRow, nbCol);
 
                 //Verification si la matrice est triangulaire
-                if (EstTriangulaire(1,2) && EstTriangulaire(2,2))
+                if (EstTriangulaire(1, 2) && EstTriangulaire(2, 2))
                 {
                     for (int i = 0; i < nbRow; i++)
                     {
@@ -194,6 +194,50 @@ namespace TpMath.Classe
 
             }
         }
+
+        //Retourne vrai si la matrice est stricement dominante diagonalement (pour la méthode de jacobi)
+        public Boolean EstStrictementDominante
+        {
+            get
+            {
+                Boolean cond = true;
+                double somme;
+                for (int i = 0; i < nbRow; i++)
+                {
+                    somme = 0;
+                    for (int j = 0; j < nbCol; j++)
+                    {
+                        if (i != j)
+                        {
+                            somme += matrice[i, j];
+                        }
+
+                    }
+                    if (matrice[i, i] <= somme)
+                    {
+                        cond = false;
+                    }
+                }
+
+                return cond;
+            }
+        }
+
+        //Copie une matrice (pour jacobi)
+        public void Copier(Matrice mat)
+        {
+
+            if (mat.NbRow == nbRow && mat.NbCol == nbCol)
+            {
+                for (int i = 0; i < mat.NbRow; i++)
+                {
+                    for (int j = 0; j < mat.NbCol; j++)
+                    {
+                        matrice[i, j] = mat.matrice[i, j];
+                    }
+                }
+            }
+        }
         #endregion
 
 
@@ -212,12 +256,13 @@ namespace TpMath.Classe
             nbRow = 3;
             if (test == 1)
             {
-                //matrice = new double[3, 3] { { 2, 0, 0 }, { 0, 3, 0 }, { 0, 0, 4 } };
-                matrice = new double[3, 3] { { 2, 1, 3 }, { 1, -2, 1 }, { 1, 1, -2 } };
+                matrice = new double[3, 3] { { 2, 0, 0 }, { 0, 3, 0 }, { 0, 0, 4 } };
+                //matrice =  new double[3, 3] { { 4, 0, 0 }, { 2, 5, 0 }, { 4, 5, 6 } }; 
             }
             else if (test == 2)
             {
                 matrice = new double[3, 3] { { 0, 0, 0 }, { 4, 0, 0 }, { 0, 2, 0 } };
+                //matrice = new double[3, 3] { { 4, -1, 0 }, { -1, 4, -1 }, { 0, -1, 4 } };
             }
             else if (test == 3)
             {
@@ -246,7 +291,7 @@ namespace TpMath.Classe
                 for (int j = 0; j < nbCol; j++)
                 {
                     Console.Clear();
-                    Console.WriteLine("Saisissez la valeur à la position {0},{1}", i+1, j+1);
+                    Console.WriteLine("Saisissez la valeur à la position {0},{1}", i + 1, j + 1);
                     matrice[i, j] = Int32.Parse(Console.ReadLine());
                 }
             }
@@ -305,7 +350,7 @@ namespace TpMath.Classe
                 for (int j = 0; j < nbCol; j++)
                 {
                     //On arrondi les nombres à virgules : perte de précision mais cela reste représentatif tout en étant lisible
-                    Console.Write(Math.Round(matrice[i, j],2).ToString().PadRight(6));
+                    Console.Write(Math.Round(matrice[i, j], 2).ToString().PadRight(6));
                 }
                 Console.WriteLine();
             }
@@ -365,7 +410,7 @@ namespace TpMath.Classe
 
                 resultNbRow = nbRow;
                 resultNbCol = pMatrice[indMat].nbCol;
-                if (currentMatrice != 1) 
+                if (currentMatrice != 1)
                 {
                     previousInd = indMat - 1;
                 }
@@ -583,7 +628,7 @@ namespace TpMath.Classe
                 {
                     if (isSignePos)
                     {
-                        comp +=  ComplementAlgebrique(j, newMat);
+                        comp += ComplementAlgebrique(j, newMat);
                         isSignePos = false;
                     }
                     else
