@@ -65,6 +65,19 @@ namespace TpMath.Classe
                 n = 3;
             }
 
+            if (test == 3)
+            {
+                matrice1 = new double[3, 3] { { 0, 0, 0 }, { 4, 0, 0 }, { 0, 2, 0 } };
+                matrice2 = new double[3, 1] { { 5 }, { 2 }, { 3 } };
+                matriceA = new Matrice(3, 3);
+                matriceB = new Matrice(3, 1);
+                matriceA.matrice = matrice1;
+                matriceB.matrice = matrice2;
+                n = 3;
+            }
+
+           
+
         }
 
         public Systeme(Matrice a, Matrice b, int n)
